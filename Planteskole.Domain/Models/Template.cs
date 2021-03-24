@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planteskole.Domain.Models
 {
-    class Template
+    public class Template
     {
         public string Name { get; set; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planteskole.Domain.Models
 {
-    class Plant
+    public class Plant
     {
         public string Name { get; set; }
         public int Amount { get; set; }
