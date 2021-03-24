@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planteskole.Domain.Services
 {
-    public interface IdataServices<T>
+    public interface IDataService<T>
     {
         Task<IEnumerable<T>> GetAll();
 

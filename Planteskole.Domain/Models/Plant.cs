@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Planteskole.Domain.Models
 {
-    public class Plant
+    public class Plant : DomainObject
     {
-        [Key]
+        //[Key]
         public string Name { get; set; }
         public int Amount { get; set; }
     }
