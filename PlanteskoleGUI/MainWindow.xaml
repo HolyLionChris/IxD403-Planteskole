@@ -7,8 +7,29 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" Margin="136,158,437,158"/>
-        <Button Content="Button" Margin="436,158,137,158"/>
-
+        <TabControl HorizontalAlignment="Stretch">
+            <TabItem Header="TabItem" Margin="569,-2,-573,0">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem" Margin="572,-2,-576,0">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem" Margin="575,-2,-579,0">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem" Margin="578,-2,-582,0">
+                <Grid>
+                    <Expander Header="Greenhouse" Background="#FFC4C4C4" Margin="10,60,284,10">
+                        <Grid Background="#FFE5E5E5">
+                            <Expander Header="Expander" Margin="25,10,0,0">
+                                <Grid>
+                                    
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </Expander>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

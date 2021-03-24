@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Planteskole.Domain": {
+      "commandName": "Executable"
+    }
+  }
+}
