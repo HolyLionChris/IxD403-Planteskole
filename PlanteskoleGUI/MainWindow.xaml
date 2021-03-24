@@ -5,31 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanteskoleGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TabControl HorizontalAlignment="Stretch">
-            <TabItem Header="TabItem" Margin="569,-2,-573,0">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem" Margin="572,-2,-576,0">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem" Margin="575,-2,-579,0">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem" Margin="578,-2,-582,0">
-                <Grid>
-                    <Expander Header="Greenhouse" Background="#FFC4C4C4" Margin="10,60,284,10">
-                        <Grid Background="#FFE5E5E5">
-                            <Expander Header="Expander" Margin="25,10,0,0">
-                                <Grid>
-                                    
-                                </Grid>
-                            </Expander>
+        Title="STORAGE" Height="1000" Width="1800">
+    <Grid Background="#FF3F3F46">
+        <TabControl Margin="0,20,0,0">
+            <TabItem Header="STORAGE" FontSize="18" FontWeight="Bold">
+                <Grid Background="#FFE5E5E5">
+                    <Expander Header="Expander" Margin="10,80,525,817" FontWeight="Normal" FontSize="18" Background="#FFC4C4C4">
+                        <Grid Background="White" Margin="0,0,0,-800">
+
                         </Grid>
                     </Expander>
                 </Grid>
             </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
+            </TabItem>
         </TabControl>
+        <Rectangle Margin="1318,394,32,10" Fill="#FFC4C4C4"/>
+        <Rectangle Margin="1318,136,32,620" Fill="#FFC4C4C4"/>
     </Grid>
 </Window>
