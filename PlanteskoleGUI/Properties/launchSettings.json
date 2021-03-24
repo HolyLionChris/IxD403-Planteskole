@@ -2,7 +2,7 @@
   "profiles": {
     "PlanteskoleGUI": {
       "commandName": "Executable",
-      "executablePath": "C:\\Users\\Draysh\\source\\repos\\IxD403-Planteskole\\PlanteskoleGUI\\bin\\Debug\\net5.0-windows\\PlanteskoleGUI.exe"
+      "executablePath": "C:\\Users\\heino\\source\\repos\\IxD403 Planteskole\\PlanteskoleGUI\\bin\\Debug\\net5.0-windows\\PlanteskoleGUI.exe"
     }
   }
 }
