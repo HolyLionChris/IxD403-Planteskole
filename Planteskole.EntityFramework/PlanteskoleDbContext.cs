@@ -10,13 +10,12 @@ namespace Planteskole.EntityFramework
 {
     public class PlanteskoleDbContext : DbContext //manage interaction with database 
     {
+
+
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Template> Templates { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PlanteskoleDbContext(DbContextOptions options) : base(options) //empty because base class takes care of it
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PlanteskoleDB;Trusted_Connection=True");
-            base.OnConfiguring(optionsBuilder);
         }
 
     }

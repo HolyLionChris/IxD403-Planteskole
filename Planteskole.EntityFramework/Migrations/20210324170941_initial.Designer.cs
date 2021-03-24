@@ -9,8 +9,8 @@ using Planteskole.EntityFramework;
 namespace Planteskole.EntityFramework.Migrations
 {
     [DbContext(typeof(PlanteskoleDbContext))]
-    [Migration("20210324143357_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210324170941_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
