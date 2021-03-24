@@ -15,7 +15,7 @@ namespace Planteskole.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PlanteskoleDB;Trusted_Connection=True");
             base.OnConfiguring(optionsBuilder);
         }
 
