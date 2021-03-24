@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planteskole.Domain
+namespace Planteskole.Domain.Models
 {
-    class Class3
+    class Template
     {
+        public string Name { get; set; }
     }
 }

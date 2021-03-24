@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planteskole.Domain", "Plant
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanteskoleGUI", "PlanteskoleGUI\PlanteskoleGUI.csproj", "{D6399075-1B7E-41C2-A72C-AC49699DD915}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planteskole.EntityFramework", "Planteskole.EntityFramework\Planteskole.EntityFramework.csproj", "{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D6399075-1B7E-41C2-A72C-AC49699DD915}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6399075-1B7E-41C2-A72C-AC49699DD915}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6399075-1B7E-41C2-A72C-AC49699DD915}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
