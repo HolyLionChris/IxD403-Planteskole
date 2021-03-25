@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Planteskole.EntityFramework;
 
 namespace Planteskole.EntityFramework.Migrations
 {
     [DbContext(typeof(PlanteskoleDbContext))]
-    partial class PlanteskoleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210325132743_Rhododendron")]
+    partial class Rhododendron
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

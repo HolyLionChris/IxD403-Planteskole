@@ -3,6 +3,7 @@ using Planteskole.Domain.Services;
 using Planteskole.EntityFramework;
 using Planteskole.EntityFramework.Services;
 using System;
+using System.Linq; //.Count
 
 namespace ConsoleAppPlanteskole1
 {
@@ -10,7 +11,20 @@ namespace ConsoleAppPlanteskole1
     {
         static void Main(string[] args)
         {
-            IDataService<Plant> userService = new GenericDataService<Plant>(new PlanteskoleDbContextFactory());
+            IDataService<Template> templateService = new GenericDataService<Template>(new PlanteskoleDbContextFactory());
+            //templateService.Create(new Template { Name = "Acapella" }).Wait();
+
+
+
+            //Console.WriteLine(templateService.GetAll().Result.Count());
+            //Console.ReadLine();
+
+            //Console.WriteLine(templateService.Get(1).Result); //mangler .ToString
+            //Console.ReadLine();
+
+            //Console.WriteLine(templateService.Update(1, new Template() { Name = " Anden Rhododendron" }).Result);
+
+            //Console.WriteLine(templateService.Delete(1).Result);
         }
     }
 }

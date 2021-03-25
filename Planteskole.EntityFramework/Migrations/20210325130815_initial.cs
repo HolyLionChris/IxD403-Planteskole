@@ -10,23 +10,27 @@ namespace Planteskole.EntityFramework.Migrations
                 name: "Plants",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plants", x => x.Name);
+                    table.PrimaryKey("PK_Plants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Templates",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Templates", x => x.Name);
+                    table.PrimaryKey("PK_Templates", x => x.Id);
                 });
         }
 

@@ -9,7 +9,7 @@ namespace Planteskole.Domain.Models
 {
     public class Plant : DomainObject
     {
-        //[Key]
+        //[Key] also - Having empty lines here fucks up the data table creation in database
         public string Name { get; set; }
         public int Amount { get; set; }
     }
