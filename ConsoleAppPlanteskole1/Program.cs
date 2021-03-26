@@ -22,7 +22,7 @@ namespace ConsoleAppPlanteskole1
             //Console.WriteLine(templateService.Get(1).Result); //mangler .ToString
             //Console.ReadLine();
 
-            //Console.WriteLine(templateService.Update(1, new Template() { Name = " Anden Rhododendron" }).Result);
+            Console.WriteLine(templateService.Update(2, new Template() { Name = " Anden Rhododendron" }).Result);
 
             //Console.WriteLine(templateService.Delete(1).Result);
         }
