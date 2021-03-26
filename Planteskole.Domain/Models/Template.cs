@@ -9,7 +9,6 @@ namespace Planteskole.Domain.Models
 {
     public class Template : DomainObject
     {
-        //[Key]
         public string Name { get; set; }
     }
 }
