@@ -27,7 +27,7 @@
         <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" 
                   EnableRowVirtualization="True" 
                   ItemsSource="{Binding Source={StaticResource categoryProductsViewSource}}" 
-                  Margin="13,205,43,108" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  Margin="13,221,43,92" RowDetailsVisibilityMode="VisibleWhenSelected" 
                   RenderTransformOrigin="0.488,0.251">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CategoryId}" 
@@ -38,7 +38,7 @@
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="323,347,0,83" 
+        <Button Content="Save" HorizontalAlignment="Left" Margin="323,358,0,72" 
                 Click="Button_Click" Height="20" Width="124"/>
     </Grid>
 </UserControl>
