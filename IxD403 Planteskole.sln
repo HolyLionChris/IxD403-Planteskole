@@ -5,11 +5,7 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planteskole.Domain", "Planteskole.Domain\Planteskole.Domain.csproj", "{1FFBD90B-06EB-4D90-96B8-5CBA75A1F597}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planteskole.EntityFramework", "Planteskole.EntityFramework\Planteskole.EntityFramework.csproj", "{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppPlanteskole1", "ConsoleAppPlanteskole1\ConsoleAppPlanteskole1.csproj", "{4273F138-4F25-4746-9D80-E39F380C1742}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planteskole.WPF", "Planteskole.WPF\Planteskole.WPF.csproj", "{10DA024E-4FD1-411B-A4B1-CB62427926D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planteskole.WPF", "Planteskole.WPF\Planteskole.WPF.csproj", "{10DA024E-4FD1-411B-A4B1-CB62427926D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,14 +17,6 @@ Global
 		{1FFBD90B-06EB-4D90-96B8-5CBA75A1F597}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FFBD90B-06EB-4D90-96B8-5CBA75A1F597}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FFBD90B-06EB-4D90-96B8-5CBA75A1F597}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C837DE2-DF2E-4CA5-9319-33F0C9C63719}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4273F138-4F25-4746-9D80-E39F380C1742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4273F138-4F25-4746-9D80-E39F380C1742}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4273F138-4F25-4746-9D80-E39F380C1742}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4273F138-4F25-4746-9D80-E39F380C1742}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10DA024E-4FD1-411B-A4B1-CB62427926D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10DA024E-4FD1-411B-A4B1-CB62427926D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10DA024E-4FD1-411B-A4B1-CB62427926D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
