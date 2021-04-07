@@ -12,33 +12,38 @@
                               Source="{Binding Plants, Source={StaticResource categoryViewSource}}"/>
     </UserControl.Resources>
     <Grid Loaded="Grid_Loaded">
-        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
-                  EnableRowVirtualization="True" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" x:Name="categoryDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" Margin="10"
                   ItemsSource="{Binding Source={StaticResource categoryViewSource}}" 
-                  Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+                   RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding CategoryId}"
-                                    Header="Category Id" Width="SizeToHeader"
+                <DataGridTextColumn Binding="{Binding Id}"
+                                    Header="Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
                                     Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" 
-                  EnableRowVirtualization="True" 
+        <DataGrid Grid.Row="1" x:Name="productsDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" Margin="10"
                   ItemsSource="{Binding Source={StaticResource categoryProductsViewSource}}" 
-                  Margin="13,221,43,92" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  RowDetailsVisibilityMode="VisibleWhenSelected" 
                   RenderTransformOrigin="0.488,0.251">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding CategoryId}" 
-                                    Header="Category Id" Width="SizeToHeader"
+                <DataGridTextColumn Binding="{Binding Id}" 
+                                    Header="Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding ProductId}" Header="Product Id" 
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" 
                                     Width="SizeToHeader" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="323,358,0,72" 
-                Click="Button_Click" Height="20" Width="124"/>
+        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Center"     
+                Click="Button_Click" Height="20" Width="124" Margin="10"/>
     </Grid>
 </UserControl>
