@@ -17,8 +17,8 @@
                   ItemsSource="{Binding Source={StaticResource categoryViewSource}}" 
                   Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding CategoryId}"
-                                    Header="Category Id" Width="SizeToHeader"
+                <DataGridTextColumn Binding="{Binding Id}"
+                                    Header="Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
                                     Width="*"/>
@@ -30,10 +30,10 @@
                   Margin="13,221,43,92" RowDetailsVisibilityMode="VisibleWhenSelected" 
                   RenderTransformOrigin="0.488,0.251">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding CategoryId}" 
-                                    Header="Category Id" Width="SizeToHeader"
+                <DataGridTextColumn Binding="{Binding Id}" 
+                                    Header="Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding ProductId}" Header="Product Id" 
+                <DataGridTextColumn Binding="{Binding Id}" Header="Product Id" 
                                     Width="SizeToHeader" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
             </DataGrid.Columns>
