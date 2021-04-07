@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleAppPlanteskole1\ConsoleAppPlanteskole1.csproj" />
     <ProjectReference Include="..\Planteskole.Domain\Planteskole.Domain.csproj" />
-    <ProjectReference Include="..\Planteskole.EntityFramework\Planteskole.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
