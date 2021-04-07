@@ -33,9 +33,9 @@
                 <DataGridTextColumn Binding="{Binding Id}" 
                                     Header="Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Id}" Header="Product Id" 
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
                                     Width="SizeToHeader" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Save" HorizontalAlignment="Left" Margin="323,358,0,72" 

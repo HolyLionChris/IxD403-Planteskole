@@ -26,12 +26,15 @@ namespace Planteskole.WPF.Views
         private readonly PlantContext _context = new PlantContext();
 
         private CollectionViewSource categoryViewSource;
+        private CollectionViewSource categoryProductsViewSource;
 
         public DatabaseView()
         {
             InitializeComponent();
             categoryViewSource =
                 (CollectionViewSource)FindResource(nameof(categoryViewSource));
+            categoryProductsViewSource =
+                (CollectionViewSource)FindResource(nameof(categoryProductsViewSource));
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -46,7 +49,7 @@ namespace Planteskole.WPF.Views
             // bind to the source
             categoryViewSource.Source =
                 _context.Templates.Local.ToObservableCollection();
-            categoryViewSource.Source =
+            categoryProductsViewSource.Source =
                 _context.Plants.Local.ToObservableCollection();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
