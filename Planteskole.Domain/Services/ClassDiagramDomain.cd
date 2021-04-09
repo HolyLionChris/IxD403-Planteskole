@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Planteskole.Domain.Models.Plant">
-    <Position X="3.5" Y="2.25" Width="1.5" />
+    <Position X="4" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAaAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Plant.cs</FileName>
@@ -14,8 +14,8 @@
       <FileName>Models\Template.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Planteskole.Domain.Models.DomainObject" Collapsed="true">
-    <Position X="11.75" Y="1.5" Width="1.5" />
+  <Class Name="Planteskole.Domain.Models.DomainObject">
+    <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\DomainObject.cs</FileName>
