@@ -25,16 +25,16 @@ namespace Planteskole.WPF.Views
     {
         private readonly PlantContext _context = new PlantContext();
 
-        private CollectionViewSource categoryViewSource;
-        private CollectionViewSource categoryProductsViewSource;
+        private CollectionViewSource TemplateViewSource;
+        private CollectionViewSource PlantViewSource;
 
         public DatabaseView()
         {
             InitializeComponent();
-            categoryViewSource =
-                (CollectionViewSource)FindResource(nameof(categoryViewSource));
-            categoryProductsViewSource =
-                (CollectionViewSource)FindResource(nameof(categoryProductsViewSource));
+            TemplateViewSource =
+                (CollectionViewSource)FindResource(nameof(TemplateViewSource));
+            PlantViewSource =
+                (CollectionViewSource)FindResource(nameof(PlantViewSource));
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -47,9 +47,9 @@ namespace Planteskole.WPF.Views
             _context.Plants.Load();
 
             // bind to the source
-            categoryViewSource.Source =
+            TemplateViewSource.Source =
                 _context.Templates.Local.ToObservableCollection();
-            categoryProductsViewSource.Source =
+            PlantViewSource.Source =
                 _context.Plants.Local.ToObservableCollection();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,8 +59,8 @@ namespace Planteskole.WPF.Views
             _context.SaveChanges();
 
             // this forces the grid to refresh to latest values
-            categoryDataGrid.Items.Refresh();
-            productsDataGrid.Items.Refresh();
+            TemplateDataGrid.Items.Refresh();
+            PlantDataGrid.Items.Refresh();
         }
 
         //protected override void OnClosing(CancelEventArgs e)
