@@ -40,6 +40,10 @@ namespace Planteskole.WPF.Views
         {
             // this is for demo purposes only, to make it easier
             // to get up and running
+
+            //Should be comment unless changes have been made to the tables
+            _context.Database.EnsureDeleted();
+
             _context.Database.EnsureCreated();
 
             // load the entities into EF Core

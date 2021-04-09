@@ -13,5 +13,7 @@ namespace Planteskole.Domain.Models
         public string Name { get; set; }
         public int Amount { get; set; }
         public bool Sellable { get; set; }
+        public int Weight { get; set; }
+        public int Dimensions { get; set; }
     }
 }
