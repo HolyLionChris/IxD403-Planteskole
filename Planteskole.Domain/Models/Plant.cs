@@ -14,6 +14,9 @@ namespace Planteskole.Domain.Models
         public int Amount { get; set; }
         public bool Sellable { get; set; }
         public int Weight { get; set; }
-        public int Dimensions { get; set; }
+        public int Depth { get; set; }
+        public int Width { get; set; }
+        public int TemplateId { get; set; }
+        public int LocationId { get; set; }
     }
 }

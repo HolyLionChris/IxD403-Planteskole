@@ -12,6 +12,8 @@ namespace Planteskole.WPF.Temporary
     {
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Template> Templates { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Area> Areas { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)

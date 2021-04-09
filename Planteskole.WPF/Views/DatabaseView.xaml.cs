@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Planteskole.WPF.Temporary;
 using System;
 using System.Collections.Generic;
@@ -66,12 +67,11 @@ namespace Planteskole.WPF.Views
             TemplateDataGrid.Items.Refresh();
             PlantDataGrid.Items.Refresh();
         }
-
         //protected override void OnClosing(CancelEventArgs e)
         //{
-            // clean up database connections
-            //_context.Dispose();
-            //base.OnClosing(e);
+        // clean up database connections
+        //_context.Dispose();
+        //base.OnClosing(e);
         //}
     }
 }
