@@ -12,5 +12,6 @@ namespace Planteskole.Domain.Models
         //[Key] also - Having empty lines here fucks up the data table creation in database
         public string Name { get; set; }
         public int Amount { get; set; }
+        public bool Sellable { get; set; }
     }
 }

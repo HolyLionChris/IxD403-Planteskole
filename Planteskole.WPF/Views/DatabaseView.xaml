@@ -8,8 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <CollectionViewSource x:Key="TemplateViewSource"/>
-        <CollectionViewSource x:Key="PlantViewSource" 
-                              Source="{Binding Plants, Source={StaticResource TemplateViewSource}}"/>
+        <CollectionViewSource x:Key="PlantViewSource" Source="{Binding Plants, Source={StaticResource TemplateViewSource}}"/>
     </UserControl.Resources>
     <Grid Loaded="Grid_Loaded">
         <DataGrid x:Name="TemplateDataGrid" AutoGenerateColumns="False" 
@@ -17,11 +16,8 @@
                   ItemsSource="{Binding Source={StaticResource TemplateViewSource}}" 
                   Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}"
-                                    Header="Id" Width="SizeToHeader"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
-                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="PlantDataGrid" AutoGenerateColumns="False" 
@@ -30,15 +26,12 @@
                   Margin="13,221,43,92" RowDetailsVisibilityMode="VisibleWhenSelected" 
                   RenderTransformOrigin="0.488,0.251">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" 
-                                    Header="Id" Width="SizeToHeader"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
-                                    Width="SizeToHeader" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
                 <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Sellable}" Header="Sellable" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="323,358,0,72" 
-                Click="Button_Click" Height="20" Width="124"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="323,358,0,72" Click="Button_Click" Height="20" Width="124"/>
     </Grid>
 </UserControl>

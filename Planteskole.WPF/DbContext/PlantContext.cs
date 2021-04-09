@@ -18,7 +18,7 @@ namespace Planteskole.WPF.Temporary
         {
             optionsBuilder.UseSqlite(
                 "Data Source=PlanteskoleDB.db");
-            optionsBuilder.UseLazyLoadingProxies();
+            //optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
     }
