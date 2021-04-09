@@ -15,5 +15,30 @@ namespace Planteskole.Domain.Models
         public bool Sellable { get; set; }
         public int Weight { get; set; }
         public int Dimensions { get; set; }
+        private string _footType;
+        public string FootType
+        {
+            get 
+            {
+                return _footType;
+            }
+            set 
+            {
+                switch (value)
+                {
+                    case ("BareRoot"):
+                        _footType = value;
+                        break;
+                    case ("Pot"):
+                        _footType = value;
+                        break;
+                    case ("Lump"):
+                        _footType = value;
+                        break;
+                    default:
+                    break;
+                }
+            }
+        }
     }
 }
