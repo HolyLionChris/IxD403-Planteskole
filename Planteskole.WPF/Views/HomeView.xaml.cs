@@ -36,6 +36,8 @@ namespace Planteskole.WPF.Views
             PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
             AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
             LocationViewSource = (CollectionViewSource)FindResource(nameof(LocationViewSource));
+            PropertyGroupDescription NameDescription = new PropertyGroupDescription("Name");
+            AreaViewSource.GroupDescriptions.Add(NameDescription);
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
