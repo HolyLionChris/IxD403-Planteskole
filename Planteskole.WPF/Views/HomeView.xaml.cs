@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Planteskole.WPF.ViewModels;
 
 namespace Planteskole.WPF.Views
 {
@@ -36,8 +37,6 @@ namespace Planteskole.WPF.Views
             PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
             AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
             LocationViewSource = (CollectionViewSource)FindResource(nameof(LocationViewSource));
-            PropertyGroupDescription NameDescription = new PropertyGroupDescription("Name");
-            AreaViewSource.GroupDescriptions.Add(NameDescription);
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -53,16 +52,18 @@ namespace Planteskole.WPF.Views
             PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
             AreaViewSource.Source = _context.Areas.Local.ToObservableCollection();
             LocationViewSource.Source = _context.Locations.Local.ToObservableCollection();
+
+            this.StorageList.DataContext = new StorageExpandableListViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             _context.SaveChanges();
 
-            PlantDataGrid.Items.Refresh();
+            //PlantDataGrid.Items.Refresh();
         }
 
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        /*private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
             if ((e.Item as DomainObject).Id == 1)
             {
@@ -72,6 +73,6 @@ namespace Planteskole.WPF.Views
             {
                 e.Accepted = false;
             }
-        }
+        }*/
     }
 }
