@@ -11,6 +11,7 @@ namespace Planteskole.WPF.State.Navigators
     public enum ViewType
     {
         Home,
+        Add,
         Database
     }
     public interface INavigator

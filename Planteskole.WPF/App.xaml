@@ -14,6 +14,9 @@
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddViewModel}">
+                <views:AddView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:DatabaseViewModel}">
                 <views:DatabaseView/>
             </DataTemplate>

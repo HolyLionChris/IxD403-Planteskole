@@ -35,6 +35,9 @@ namespace Planteskole.WPF.Commands
                     case ViewType.Home:
                         _navigator.CurrentViewModel = new HomeViewModel();
                         break;
+                    case ViewType.Add:
+                        _navigator.CurrentViewModel = new AddViewModel();
+                        break;
                     case ViewType.Database:
                         _navigator.CurrentViewModel = new DatabaseViewModel();
                         break;
