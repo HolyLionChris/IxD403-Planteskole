@@ -55,5 +55,11 @@ namespace Planteskole.WPF.Views
             // this forces the grid to refresh to latest values
             PlantDataGrid.Items.Refresh();
         }
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            //_context.Plants.Remove((Plants)PlantViewSource.View.CurrentItem);
+            _context.SaveChanges();
+            PlantDataGrid.Items.Refresh();
+        }
     }
 }

@@ -15,7 +15,7 @@
             <RowDefinition Height="6*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="53*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
             <ColumnDefinition Width="100*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -40,7 +40,7 @@
             <UniformGrid Margin="0,5" Rows="1" >
                 
                 <Button Margin="0,0,10,0" Content="Refresh" Command="{Binding RefreshEvent}"/>
-                <!--<Button Margin="10,0,10,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click"/>-->
+                <Button Margin="10,0,10,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click"/>
                 <Button Margin="10,0,0,0" Content="{Binding ButtonAddContent}" Command="{Binding AddEvent}"/>
                 
             </UniformGrid>
@@ -66,7 +66,7 @@
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding TemplateId}" Header="TemplateId" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding LocationId}" Header="LocationId" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding LocationId}" Header="LocationId" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

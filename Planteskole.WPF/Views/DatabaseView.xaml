@@ -30,7 +30,7 @@
                     <DataGridTextColumn Binding="{Binding Cold}" Header="Cold" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Stackable}" Header="Stackable" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding BareRoot}" Header="BareRoot" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Lump}" Header="Lump" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Lump}" Header="Lump" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -49,4 +49,5 @@
             </Grid>
             <Button Grid.Row="3" Click="Button_Click" Content="Save" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Padding="10" Margin="4 20" Width="100"/>
         </Grid>
+    </Grid>
 </UserControl>
