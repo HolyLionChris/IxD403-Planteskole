@@ -7,8 +7,6 @@
              xmlns:viewmodels="clr-namespace:Planteskole.WPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-    </UserControl.Resources>
     <Grid Margin="10">
         <TreeView Name="trvMenu">
             <TreeView.Resources>
@@ -19,13 +17,7 @@
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type local:LocationO}">
                     <TreeViewItem Header="{Binding Title}">
-                        <DataGrid ItemsSource="{Binding Items}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Id}"/>
-                                <DataGridTextColumn Binding="{Binding Name}"/>
-                                <DataGridTextColumn Binding="{Binding LocationId}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <DataGrid ItemsSource="{Binding Items}"/>
                     </TreeViewItem>
                 </DataTemplate>
             </TreeView.Resources>

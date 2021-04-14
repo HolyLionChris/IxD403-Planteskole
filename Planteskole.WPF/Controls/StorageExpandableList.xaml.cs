@@ -24,12 +24,23 @@ namespace Planteskole.WPF.Controls
     /// </summary>
     public partial class StorageExpandableList : UserControl
     {
-
+        private readonly PlantContext _context;
         public StorageExpandableList()
         {
             InitializeComponent();
 
-            StorageO MyStorage = new StorageO("This Storage");
+            _context = new PlantContext();
+            _context.Database.EnsureCreated();
+
+            _context.Plants.Load();
+            _context.Areas.Load();
+            _context.Locations.Load();
+
+            List<Plant> ListOfPlants = _context.Plants.Local.ToList();
+            List<Location> ListOfLocations = _context.Locations.Local.ToList();
+            List<Area> ListOfAreas = _context.Areas.Local.ToList();
+
+            StorageO MyStorage = new StorageO("This Storage", ListOfPlants, ListOfLocations, ListOfAreas);
             trvMenu.Items.Add(MyStorage);
 
             /*vv DEMO vv
@@ -83,21 +94,9 @@ namespace Planteskole.WPF.Controls
 
     class StorageO : AbstractO
     {
-        public StorageO(string title)
+        public StorageO(string title, List<Plant> ListOfPlants, List<Location> ListOfLocations, List<Area> ListOfAreas)
         {
             this.Title = title;
-
-            PlantContext context = new PlantContext();
-            context.Database.EnsureCreated();
-
-            context.Plants.Load();
-            context.Areas.Load();
-            context.Locations.Load();
-
-            List<Plant> ListOfPlants = context.Plants.Local.ToList();
-            List<Location> ListOfLocations = context.Locations.Local.ToList();
-            List<Area> ListOfAreas = context.Areas.Local.ToList();
-
             this.Items = new ObservableCollection<AreaO>();
 
             //Populates the storage with one of each area
