@@ -82,6 +82,12 @@ namespace Planteskole.WPF.Controls
             
              ^^ DEMO ^^*/
         }
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            _context.SaveChanges();
+
+            //trvMenu.Items.Refresh();  - Currently closes all the drop-downs, needs fixing
+        }
     }
 
 

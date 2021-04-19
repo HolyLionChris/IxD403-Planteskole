@@ -56,12 +56,12 @@ namespace Planteskole.WPF.Views
             this.StorageList.DataContext = new StorageExpandableListViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /*private void Button_Click(object sender, RoutedEventArgs e)
         {
             _context.SaveChanges();
 
             //PlantDataGrid.Items.Refresh();
-        }
+        }*/
 
         /*private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
