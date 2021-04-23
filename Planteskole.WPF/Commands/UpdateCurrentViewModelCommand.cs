@@ -41,6 +41,9 @@ namespace Planteskole.WPF.Commands
                     case ViewType.Database:
                         _navigator.CurrentViewModel = new DatabaseViewModel();
                         break;
+                    case ViewType.Testing:
+                        _navigator.CurrentViewModel = new TestingViewModel();
+                        break;
                     default:
                         break;
                 }

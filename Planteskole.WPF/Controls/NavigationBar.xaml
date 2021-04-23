@@ -44,7 +44,10 @@
                          IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:DatabaseViewModel}}"
                          Command="{Binding UpdateCurrentViewModelCommand}" 
                          CommandParameter="{x:Static nav:ViewType.Database}"/>
-            <RadioButton Grid.Column="3" Content="Temporary"/>
+            <RadioButton Grid.Column="3" Content="Testing"
+                         IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:TestingViewModel}}"
+                         Command="{Binding UpdateCurrentViewModelCommand}" 
+                         CommandParameter="{x:Static nav:ViewType.Testing}"/>
 
         </Grid>
     </Grid>
