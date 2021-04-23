@@ -20,7 +20,7 @@
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type local:LocationO}">
                     <TreeViewItem Header="{Binding Title, Mode=TwoWay}">
-                        <DataGrid ItemsSource="{Binding Source={StaticResource }}"/>
+                        <DataGrid VerticalScrollBarVisibility="Visible" AlternatingRowBackground="LightGray" AlternationCount="2" ItemsSource="{Binding Source={StaticResource PlantViewSource}}"/>
                     </TreeViewItem>
                 </DataTemplate>
             </TreeView.Resources>
