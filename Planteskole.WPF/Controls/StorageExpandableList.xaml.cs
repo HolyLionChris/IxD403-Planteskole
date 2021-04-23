@@ -25,9 +25,14 @@ namespace Planteskole.WPF.Controls
     public partial class StorageExpandableList : UserControl
     {
         private readonly PlantContext _context;
+
+        private CollectionViewSource PlantViewSource;
         public StorageExpandableList()
         {
             InitializeComponent();
+
+            PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
+            //PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
 
             _context = new PlantContext();
             _context.Database.EnsureCreated();
@@ -82,12 +87,43 @@ namespace Planteskole.WPF.Controls
             
              ^^ DEMO ^^*/
         }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            // this is for demo purposes only, to make it easier
+            // to get up and running
+
+            //Should be comment unless changes have been made to the tables
+
+
+            // load the entities into EF Core
+            _context.Plants.Load();
+
+            // bind to the source
+            PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
+        }
+
+
+
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             _context.SaveChanges();
 
-            //trvMenu.Items.Refresh();  - Currently closes all the drop-downs, needs fixing
+            //trvMenu.Items.Refresh(); // - Currently closes all the drop-downs, needs fixing We use ViewModels for that
         }
+
+        /*private void Button_ClickDelete(object sender, RoutedEventArgs e)
+        {
+            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+            _context.SaveChanges();
+           
+
+            trvMenu.Items.Refresh(); // - Currently closes all the drop-downs, needs fixing We use ViewModels for that
+
+            //_entities.Schoolresultaten.Remove((Schoolresultaten)_schoolresultatenViewSource.View.CurrentItem);
+            //_entities.SaveChanges();
+            //Refresh();
+        }*/
     }
 
 
