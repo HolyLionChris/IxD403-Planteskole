@@ -36,7 +36,7 @@
                                             <Expander
 												BorderBrush="#FF002255"
 												IsExpanded="True"
-												Background="Tan"
+												Background="LightGray"
 												BorderThickness="0,0,0,1">
                                                 <Expander.Header>
                                                     <StackPanel Orientation="Horizontal">
