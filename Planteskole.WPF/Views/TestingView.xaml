@@ -3,12 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Planteskole.WPF.Views"
+             xmlns:local="clr-namespace:Planteskole.WPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+
+    <UserControl.Resources>
+        <local:GroupsToTotalConverter x:Key="groupsConverter" />
+    </UserControl.Resources>
+
     <Grid>
         <TextBlock Text="Hello" />
+        <StackPanel>
+            <DataGrid Height="250" ItemsSource="{Binding OrdersView}" >
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <DockPanel Background="LightBlue">
+                                    <TextBlock Text="{Binding Path=Name, Converter={StaticResource completeConverter}}"
+										Foreground="Blue" Margin="30,0,0,0" Width="100" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}" >
+                                <Setter Property="Margin" Value="0,0,0,5" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                                            <Expander
+												BorderBrush="#FF002255"
+												IsExpanded="True"
+												Background="Tan"
+												BorderThickness="0,0,0,1">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock VerticalAlignment="Center"
+															FontWeight="Bold"
+															Text="{Binding Path=Name}"
+															Width="100" />
+                                                        <TextBlock VerticalAlignment="Center"
+															Text="Item count:" />
+                                                        <TextBlock FontWeight="Bold"
+															Text="{Binding ItemCount}" />
+                                                        <TextBlock VerticalAlignment="Center"
+															TextAlignment="Right"
+															Width="100"
+															Text="Amount" />
+                                                        <TextBlock FontWeight="Bold"
+															VerticalAlignment="Center"
+															Text="{Binding Path=Items, Converter={StaticResource groupsConverter}}" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <Expander.Content>
+                                                    <ItemsPresenter />
+                                                </Expander.Content>
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Height="25">
+                <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
+                <Button Command="{Binding groupByCustomerCommand}">By customer</Button>
+                <Button Command="{Binding groupByYearMonthCommand}">By Year/Month</Button>
+            </StackPanel>
+        </StackPanel>
+
 
     </Grid>
 </UserControl>

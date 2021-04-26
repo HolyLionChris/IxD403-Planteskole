@@ -21,6 +21,7 @@ namespace Planteskole.WPF.Views
         public TestingView()
         {
             InitializeComponent();
+            DataContext = new ViewModels.OrdersViewModel(); 
         }
     }
 }

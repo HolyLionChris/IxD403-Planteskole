@@ -18,5 +18,12 @@ namespace Planteskole.Domain.Models
         public int Width { get; set; }
         public int TemplateId { get; set; }
         public int LocationId { get; set; }
+        public string noGroup
+        {
+            get
+            {
+                return "Total";
+            }
+        }
     }
 }
