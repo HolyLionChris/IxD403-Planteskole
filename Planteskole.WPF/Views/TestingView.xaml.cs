@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Planteskole.WPF.Temporary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,15 @@ namespace Planteskole.WPF.Views
   
     public partial class TestingView : UserControl
     {
+        private readonly PlantContext _context = new PlantContext();
+
+        private CollectionViewSource PlantViewSource;
         public TestingView()
         {
             InitializeComponent();
-            DataContext = new ViewModels.OrdersViewModel(); 
+            //PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
+            DataContext = new ViewModels.OrdersViewModel();
+
         }
     }
 }

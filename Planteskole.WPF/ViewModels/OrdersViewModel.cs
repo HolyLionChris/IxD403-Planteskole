@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Windows.Input;
-using Planteskole.WPF.Commands; 
+using Planteskole.WPF.Commands;
+using Microsoft.EntityFrameworkCore;
+using Planteskole.WPF.Temporary;
 
 
 
@@ -18,9 +20,19 @@ namespace Planteskole.WPF.ViewModels
     {
         public ICollectionView OrdersView { get; set; }
 
+        private readonly PlantContext _context = new PlantContext();
+
+
+        private CollectionViewSource PlantViewSource;
+
+
+
+
         public OrdersViewModel()
         {
-            IList<Plant> plants = new Plants();
+
+            _context.Plants.Load();
+            IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             OrdersView = CollectionViewSource.GetDefaultView(plants);
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 

@@ -34,7 +34,10 @@
             
             <TextBlock Margin="0,5" Text="Width:"/>
             <TextBox Text="{Binding SelectedItem.Width, Mode=TwoWay}"/>
-            
+
+            <TextBlock Margin="0,5" Text="Location:"/>
+            <TextBox Text="{Binding SelectedItem.Location, Mode=TwoWay}"/>
+
             <TextBlock Margin="0,5" Text="Where it needs to go:"/>
             <TextBox Text="{Binding SelectedItem.LocationId, Mode=TwoWay}"/>
             <UniformGrid Margin="0,5" Rows="1" >
@@ -67,6 +70,7 @@
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding TemplateId}" Header="TemplateId" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LocationId}" Header="LocationId" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Location}" Header="Location" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
