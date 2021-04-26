@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations; //[Key]
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Planteskole.Domain.Models
 {
@@ -25,5 +26,10 @@ namespace Planteskole.Domain.Models
                 return "Total";
             }
         }
+    }
+
+    public class Plants: ObservableCollection<Plant>
+    {
+
     }
 }

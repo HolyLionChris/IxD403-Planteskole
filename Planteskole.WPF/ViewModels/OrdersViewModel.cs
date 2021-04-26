@@ -20,7 +20,7 @@ namespace Planteskole.WPF.ViewModels
 
         public OrdersViewModel()
         {
-            IList<Plant> plants = new Plant();
+            IList<Plant> plants = new Plants();
             OrdersView = CollectionViewSource.GetDefaultView(plants);
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
