@@ -38,7 +38,7 @@ namespace Planteskole.WPF.ViewModels
         public void GroupByCustomer()
         {
             OrdersView.GroupDescriptions.Clear();
-            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
+            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
         }
 
         public ICommand groupByCustomerCommand

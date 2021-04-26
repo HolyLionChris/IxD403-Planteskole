@@ -72,8 +72,7 @@
 
             <StackPanel Orientation="Horizontal" Height="25">
                 <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
-                <Button Command="{Binding groupByCustomerCommand}">By customer</Button>
-                <Button Command="{Binding groupByYearMonthCommand}">By Year/Month</Button>
+                <Button Command="{Binding groupByCustomerCommand}">Location</Button>
             </StackPanel>
         </StackPanel>
 
