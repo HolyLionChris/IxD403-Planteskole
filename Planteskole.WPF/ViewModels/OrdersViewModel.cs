@@ -30,7 +30,6 @@ namespace Planteskole.WPF.ViewModels
 
         public OrdersViewModel()
         {
-
             _context.Plants.Load();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             OrdersView = CollectionViewSource.GetDefaultView(plants);
@@ -52,6 +51,7 @@ namespace Planteskole.WPF.ViewModels
             OrdersView.GroupDescriptions.Clear();
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
         }
+        //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByCustomerCommand
         {
