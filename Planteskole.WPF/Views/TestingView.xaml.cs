@@ -13,21 +13,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Planteskole.WPF.ViewModels;
 
 namespace Planteskole.WPF.Views
 {
   
     public partial class TestingView : UserControl
     {
-        private readonly PlantContext _context = new PlantContext();
+        
 
-        private CollectionViewSource PlantViewSource;
+        
         public TestingView()
         {
             InitializeComponent();
             //PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
             DataContext = new ViewModels.OrdersViewModel();
 
+
         }
+        
     }
 }

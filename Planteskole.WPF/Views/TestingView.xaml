@@ -73,6 +73,9 @@
             <StackPanel Orientation="Horizontal" Height="25">
                 <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
                 <Button Command="{Binding groupByCustomerCommand}">Location</Button>
+                <Button Command="{Binding groupByAreaCommand}">Area</Button>
+                <Button Command="{Binding saveButtonCommand}">Save</Button>
+                <Button Command="{Binding deleteButtonCommand}">Delete</Button>
             </StackPanel>
         </StackPanel>
 

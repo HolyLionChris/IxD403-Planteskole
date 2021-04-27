@@ -20,6 +20,7 @@ namespace Planteskole.Domain.Models
         public int TemplateId { get; set; }
         public int LocationId { get; set; }
         public string Location { get; set; }
+        public string Area { get; set; }
         public string noGroup
         {
             get
@@ -28,51 +29,5 @@ namespace Planteskole.Domain.Models
             }
         }
     }
-
-    public class Plants: ObservableCollection<Plant>
-    {
-		public Plants()
-		{
-			this.Add(new Plant
-			{
-				Name = "Rhododendron",
-				Id = 1,
-				Amount = 250,
-                Location = "Bord 1",
-			});
-            this.Add(new Plant
-            {
-                Name = "BushRose",
-                Id = 2,
-                Amount = 25,
-                Location = "Bord 2",
-            }); this.Add(new Plant
-            {
-                Name = "Treeglaze",
-                Id = 3,
-                Amount = 250,
-                Location = "Bord 3",
-            }); this.Add(new Plant
-            {
-                Name = "VioletRose",
-                Id = 4,
-                Amount = 255,
-                Location = "Bord 3",
-            }); this.Add(new Plant
-            {
-                Name = "Viogretta",
-                Id = 5,
-                Amount = 250,
-                Location = "Bord 2",
-            }); this.Add(new Plant
-            {
-                Name = "Raps",
-                Id = 6,
-                Amount = 550,
-                Location = "Bord 1",
-            });
-
-        }
-	}
 }
 

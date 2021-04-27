@@ -22,12 +22,6 @@ namespace Planteskole.WPF.ViewModels
 
         private readonly PlantContext _context = new PlantContext();
 
-
-        private CollectionViewSource PlantViewSource;
-
-
-
-
         public OrdersViewModel()
         {
             _context.Plants.Load();
@@ -35,8 +29,12 @@ namespace Planteskole.WPF.ViewModels
             OrdersView = CollectionViewSource.GetDefaultView(plants);
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
-            groupByCustomerCommand = new GroupByCustomerCommand(this);
+            groupByCustomerCommand = new GroupByCustomerCommand(this); //OrderGroupCommand.cs
+            groupByAreaCommand = new GroupByAreaCommand(this); 
             removeGroupCommand = new RemoveGroupCommand(this);
+            saveButtonCommand = new SaveButtonCommand(this);
+            deleteButtonCommand = new DeleteButtonCommand(this);
+
 
         }
 
@@ -51,6 +49,23 @@ namespace Planteskole.WPF.ViewModels
             OrdersView.GroupDescriptions.Clear();
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
         }
+
+        public void GroupByArea()
+        {
+            OrdersView.GroupDescriptions.Clear();
+            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
+        }
+
+        public void SaveButton()
+        {
+            _context.SaveChanges();
+        }
+
+        public void DeleteButton()
+        {
+            _context.Plants.Remove((Plant)OrdersView.CurrentItem);
+            _context.SaveChanges();
+        }
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByCustomerCommand
@@ -60,6 +75,24 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public ICommand removeGroupCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand groupByAreaCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand saveButtonCommand
+        {
+            get;
+            private set; 
+        }
+
+        public ICommand deleteButtonCommand
         {
             get;
             private set;
@@ -80,7 +113,7 @@ namespace Planteskole.WPF.ViewModels
                 }
                 return total.ToString();
             }
-
+           
             return "";
         }
 
