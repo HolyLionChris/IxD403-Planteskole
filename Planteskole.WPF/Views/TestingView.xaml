@@ -8,9 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
 
-    <UserControl.Resources>
-        <local:GroupsToTotalConverter x:Key="groupsConverter" />
-    </UserControl.Resources>
 
     <Grid>
         <TextBlock Text="Hello" />
@@ -52,9 +49,6 @@
 															TextAlignment="Right"
 															Width="100"
 															Text="Amount" />
-                                                        <TextBlock FontWeight="Bold"
-															VerticalAlignment="Center"
-															Text="{Binding Path=Items, Converter={StaticResource groupsConverter}}" />
                                                     </StackPanel>
                                                 </Expander.Header>
                                                 <Expander.Content>

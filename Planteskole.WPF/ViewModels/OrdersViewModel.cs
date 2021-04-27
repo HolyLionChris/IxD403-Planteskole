@@ -27,7 +27,7 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Load();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             OrdersView = CollectionViewSource.GetDefaultView(plants);
-            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
+            //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByCustomerCommand = new GroupByCustomerCommand(this); //OrderGroupCommand.cs
             groupByAreaCommand = new GroupByAreaCommand(this); 
@@ -35,6 +35,8 @@ namespace Planteskole.WPF.ViewModels
             saveButtonCommand = new SaveButtonCommand(this);
             deleteButtonCommand = new DeleteButtonCommand(this);
 
+            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
+            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
 
         }
 
@@ -99,7 +101,7 @@ namespace Planteskole.WPF.ViewModels
         }
 
     }
-    public class GroupsToTotalConverter : IValueConverter
+    /*public class GroupsToTotalConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -121,5 +123,5 @@ namespace Planteskole.WPF.ViewModels
         {
             return value;
         }
-    }
+    }*/
 }
