@@ -9,11 +9,21 @@
 
 
 
+    <UserControl.Resources>
+        <local:GroupsToTotalConverter x:Key="groupsConverter" />
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
             <DataGrid CanUserAddRows="False" Height="250" ItemsSource="{Binding OrdersView}" >
                 <DataGrid.GroupStyle>
                     <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <DockPanel Background="LightBlue">
+                                  
+                                </DockPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
                         <GroupStyle.ContainerStyle>
                             <Style TargetType="{x:Type GroupItem}" >
                                 <Setter Property="Margin" Value="0,0,0,5" />
@@ -50,6 +60,15 @@
                                 </Setter>
                             </Style>
                         </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <DockPanel Background="LightBlue">
+                                    <TextBlock Text="{Binding Path=Name}" Foreground="Blue" Margin="30,0,0,0"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
                     </GroupStyle>
                 </DataGrid.GroupStyle>
             </DataGrid>

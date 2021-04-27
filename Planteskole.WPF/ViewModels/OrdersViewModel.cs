@@ -102,7 +102,7 @@ namespace Planteskole.WPF.ViewModels
         }
 
     }
-    /*public class GroupsToTotalConverter : IValueConverter
+    public class GroupsToTotalConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -124,5 +124,5 @@ namespace Planteskole.WPF.ViewModels
         {
             return value;
         }
-    }*/
+    }
 }
