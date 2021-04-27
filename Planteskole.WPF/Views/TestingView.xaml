@@ -10,20 +10,10 @@
 
 
     <Grid>
-        <TextBlock Text="Hello" />
         <StackPanel>
-            <DataGrid Height="250" ItemsSource="{Binding OrdersView}" >
+            <DataGrid CanUserAddRows="False" Height="250" ItemsSource="{Binding OrdersView}" >
                 <DataGrid.GroupStyle>
                     <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel Background="LightBlue">
-                                    <TextBlock Text="{Binding Path=Name, Converter={StaticResource completeConverter}}"
-										Foreground="Blue" Margin="30,0,0,0" Width="100" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-
                         <GroupStyle.ContainerStyle>
                             <Style TargetType="{x:Type GroupItem}" >
                                 <Setter Property="Margin" Value="0,0,0,5" />
@@ -66,13 +56,12 @@
 
             <StackPanel Orientation="Horizontal" Height="25">
                 <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
-                <Button Command="{Binding groupByCustomerCommand}">Location</Button>
+                <Button Command="{Binding groupByLocationCommand}">Location</Button>
                 <Button Command="{Binding groupByAreaCommand}">Area</Button>
                 <Button Command="{Binding saveButtonCommand}">Save</Button>
                 <Button Command="{Binding deleteButtonCommand}">Delete</Button>
             </StackPanel>
         </StackPanel>
-
-
+        
     </Grid>
 </UserControl>

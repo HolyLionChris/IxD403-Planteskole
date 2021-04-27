@@ -30,7 +30,7 @@ namespace Planteskole.WPF.Commands
         }
     }
 
-    public class GroupByCustomerCommand : ICommand
+    public class GroupByLocationCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -41,12 +41,12 @@ namespace Planteskole.WPF.Commands
 
         public void Execute(object parameter)
         {
-            this._viewModel.GroupByCustomer();
+            this._viewModel.GroupByLocation();
         }
 
         private OrdersViewModel _viewModel;
 
-        public GroupByCustomerCommand(OrdersViewModel viewModel)
+        public GroupByLocationCommand(OrdersViewModel viewModel)
         {
             this._viewModel = viewModel;
         }

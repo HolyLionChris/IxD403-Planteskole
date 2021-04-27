@@ -29,7 +29,7 @@ namespace Planteskole.WPF.ViewModels
             OrdersView = CollectionViewSource.GetDefaultView(plants);
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
-            groupByCustomerCommand = new GroupByCustomerCommand(this); //OrderGroupCommand.cs
+            groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
             groupByAreaCommand = new GroupByAreaCommand(this); 
             removeGroupCommand = new RemoveGroupCommand(this);
             saveButtonCommand = new SaveButtonCommand(this);
@@ -46,9 +46,10 @@ namespace Planteskole.WPF.ViewModels
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
         }
 
-        public void GroupByCustomer()
+        public void GroupByLocation()
         {
             OrdersView.GroupDescriptions.Clear();
+            OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
             OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
         }
 
@@ -70,7 +71,7 @@ namespace Planteskole.WPF.ViewModels
         }
         //We can just add more to get more different groupings, such as date added which can be automated
 
-        public ICommand groupByCustomerCommand
+        public ICommand groupByLocationCommand
         {
             get;
             private set;
