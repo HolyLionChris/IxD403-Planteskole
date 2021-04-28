@@ -19,6 +19,7 @@ namespace Planteskole.WPF.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         public ICollectionView HomeView { get; set; }
+        public ICollectionView LocationView { get; set; }
 
         private readonly PlantContext _context = new PlantContext();
 
@@ -26,8 +27,11 @@ namespace Planteskole.WPF.ViewModels
         {
             //_context.Database.EnsureCreated();
             _context.Plants.Load();
+            _context.Locations.Load();
+            IList<Location> locations = _context.Locations.Local.ToObservableCollection();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             HomeView = CollectionViewSource.GetDefaultView(plants);
+            LocationView = CollectionViewSource.GetDefaultView(locations);
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
@@ -35,6 +39,7 @@ namespace Planteskole.WPF.ViewModels
             removeGroupCommand = new RemoveGroupCommand(this);
             saveButtonCommand = new SaveButtonCommand(this);
             deleteButtonCommand = new DeleteButtonCommand(this);
+            testingCommand = new TestingButtonCommand(this); 
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
@@ -70,6 +75,11 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Remove((Plant)HomeView.CurrentItem);
             _context.SaveChanges();
         }
+        public void TestingButton()
+        {
+            HomeView.GroupDescriptions.Clear();
+            LocationView.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
+        }
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByLocationCommand
@@ -97,6 +107,11 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public ICommand deleteButtonCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand testingCommand
         {
             get;
             private set;
