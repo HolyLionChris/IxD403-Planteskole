@@ -13,8 +13,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <StackPanel Grid.Row="0" Margin="10">
             <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
