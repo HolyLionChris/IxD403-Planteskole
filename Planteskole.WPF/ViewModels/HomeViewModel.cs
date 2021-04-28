@@ -24,6 +24,7 @@ namespace Planteskole.WPF.ViewModels
 
         public HomeViewModel()
         {
+            //_context.Database.EnsureCreated();
             _context.Plants.Load();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             HomeView = CollectionViewSource.GetDefaultView(plants);
