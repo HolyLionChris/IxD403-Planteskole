@@ -9,18 +9,30 @@
 
   
     <Grid>
-        <StackPanel>
-            <DataGrid CanUserAddRows="False" Height="250" ItemsSource="{Binding HomeView}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        
+        <StackPanel Grid.Row="0" Margin="10">
+            <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                    <DataGridCheckBoxColumn Header="Sellable" Binding="{Binding Sellable}"/>
+                    <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                    <DataGridTextColumn Header="Depth" Binding="{Binding Depth}"/>
+                    <DataGridTextColumn Header="Width" Binding="{Binding Width}"/>
+                    <DataGridTextColumn Header="Area" Binding="{Binding Area}"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" />
+                </DataGrid.Columns>
                 <DataGrid.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <DockPanel Background="LightBlue">
-                                    <Expander>
-                                        <Expander.Header>
-                                            <TextBlock Text="{Binding Path=Name}" Foreground="Blue" Margin="30,0,0,0"/>
-                                        </Expander.Header>
-                                    </Expander>
+                                <DockPanel Background="Gray">
+                                    <TextBlock Text="{Binding Path=Name}" Foreground="Black" FontSize="18" FontWeight="Bold" Padding="5"/>
                                 </DockPanel>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
@@ -28,29 +40,16 @@
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
                             <Style TargetType="{x:Type GroupItem}" >
-                                <Setter Property="Margin" Value="0,0,0,5" />
+                                <Setter Property="Margin" Value="20,5,2,5" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type GroupItem}">
-                                            <Expander
-												BorderBrush="#FF002255"
-												IsExpanded="True"
-												Background="LightGray"
-												BorderThickness="0,0,0,1">
+                                            <Expander BorderBrush="LightGray" BorderThickness="2" IsExpanded="True" Background="LightGray"  >
                                                 <Expander.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock VerticalAlignment="Center"
-															FontWeight="Bold"
-															Text="{Binding Path=Name}"
-															Width="100" />
-                                                        <TextBlock VerticalAlignment="Center"
-															Text="Item count:" />
-                                                        <TextBlock FontWeight="Bold"
-															Text="{Binding ItemCount}" />
-                                                        <TextBlock VerticalAlignment="Center"
-															TextAlignment="Right"
-															Width="100"
-															Text="Amount" />
+                                                        <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Path=Name}" Width="200" FontSize="14"/>
+                                                        <TextBlock Text="Item count: " />
+                                                        <TextBlock FontWeight="Bold" Text="{Binding ItemCount}" />
                                                     </StackPanel>
                                                 </Expander.Header>
                                                 <Expander.Content>
@@ -65,15 +64,15 @@
                     </GroupStyle>
                 </DataGrid.GroupStyle>
             </DataGrid>
-
-            <StackPanel Orientation="Horizontal" Height="25">
-                <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
-                <Button Command="{Binding groupByLocationCommand}">Location</Button>
-                <Button Command="{Binding groupByAreaCommand}">Area</Button>
-                <Button Command="{Binding saveButtonCommand}">Save</Button>
-                <Button Command="{Binding deleteButtonCommand}">Delete</Button>
-            </StackPanel>
         </StackPanel>
-        
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10" HorizontalAlignment="Center" >
+            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5"/>
+            <Button Command="{Binding groupByLocationCommand}" Content="Location" Margin="2" Padding="5"/>
+            <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
+            <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
+            <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/> 
+        </StackPanel>
+
     </Grid>
 </UserControl>
