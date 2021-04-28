@@ -25,12 +25,14 @@ namespace Planteskole.WPF.ViewModels
 
         public HomeViewModel()
         {
-            //_context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();
             IList<Location> locations = _context.Locations.Local.ToObservableCollection();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
-            HomeView = CollectionViewSource.GetDefaultView(plants);
+            List<Object> allS = (from x in plants select (Object)x).ToList();
+            allS.AddRange((from x in locations select (Object)x).ToList());
+            HomeView = CollectionViewSource.GetDefaultView(allS);
             LocationView = CollectionViewSource.GetDefaultView(locations);
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
@@ -42,7 +44,7 @@ namespace Planteskole.WPF.ViewModels
             testingCommand = new TestingButtonCommand(this); 
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
 
         }
 
@@ -56,7 +58,7 @@ namespace Planteskole.WPF.ViewModels
         {
             HomeView.GroupDescriptions.Clear();
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
         }
 
         public void GroupByArea()
