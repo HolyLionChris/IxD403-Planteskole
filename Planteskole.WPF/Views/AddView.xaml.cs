@@ -14,6 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Planteskole.Domain;
+using Planteskole.WPF.ViewModels;
+using Planteskole.WPF.Models;
+using Planteskole.WPF.Commands;
+using Planteskole.Domain.Models;
 
 namespace Planteskole.WPF.Views
 {
@@ -57,9 +62,10 @@ namespace Planteskole.WPF.Views
         }
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            //_context.Plants.Remove((Plants)PlantViewSource.View.CurrentItem);
+            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
             _context.SaveChanges();
-            PlantDataGrid.Items.Refresh();
+            //PlantDataGrid.Items.Refresh();
+
         }
     }
 }

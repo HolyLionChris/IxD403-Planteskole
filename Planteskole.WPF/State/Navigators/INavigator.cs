@@ -12,7 +12,7 @@ namespace Planteskole.WPF.State.Navigators
     {
         Home,
         Add,
-        Database
+        Database,
     }
     public interface INavigator
     {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations; //[Key]
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Planteskole.Domain.Models
 {
@@ -18,5 +19,15 @@ namespace Planteskole.Domain.Models
         public int Width { get; set; }
         public int TemplateId { get; set; }
         public int LocationId { get; set; }
+        public string Location { get; set; }
+        public string Area { get; set; }
+        public string noGroup
+        {
+            get
+            {
+                return "Total";
+            }
+        }
     }
 }
+

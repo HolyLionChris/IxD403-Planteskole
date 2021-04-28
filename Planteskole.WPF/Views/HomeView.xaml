@@ -3,20 +3,77 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Planteskole.WPF.Views"
-             xmlns:controls="clr-namespace:Planteskole.WPF.Controls"
+             xmlns:local="clr-namespace:Planteskole.WPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <CollectionViewSource x:Key="PlantViewSource"/>
-        <CollectionViewSource x:Key="AreaViewSource"/>
-        <CollectionViewSource x:Key="LocationViewSource"/>
-    </UserControl.Resources>
-    <Grid Loaded="Grid_Loaded" Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <controls:StorageExpandableList Grid.Row="0" x:Name="StorageList"/>
+
+  
+    <Grid>
+        <StackPanel>
+            <DataGrid CanUserAddRows="False" Height="250" ItemsSource="{Binding HomeView}" >
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <DockPanel Background="LightBlue">
+                                    <Expander>
+                                        <Expander.Header>
+                                            <TextBlock Text="{Binding Path=Name}" Foreground="Blue" Margin="30,0,0,0"/>
+                                        </Expander.Header>
+                                    </Expander>
+                                </DockPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}" >
+                                <Setter Property="Margin" Value="0,0,0,5" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                                            <Expander
+												BorderBrush="#FF002255"
+												IsExpanded="True"
+												Background="LightGray"
+												BorderThickness="0,0,0,1">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock VerticalAlignment="Center"
+															FontWeight="Bold"
+															Text="{Binding Path=Name}"
+															Width="100" />
+                                                        <TextBlock VerticalAlignment="Center"
+															Text="Item count:" />
+                                                        <TextBlock FontWeight="Bold"
+															Text="{Binding ItemCount}" />
+                                                        <TextBlock VerticalAlignment="Center"
+															TextAlignment="Right"
+															Width="100"
+															Text="Amount" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <Expander.Content>
+                                                    <ItemsPresenter />
+                                                </Expander.Content>
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Height="25">
+                <Button Command="{Binding removeGroupCommand}">Remove Group</Button>
+                <Button Command="{Binding groupByLocationCommand}">Location</Button>
+                <Button Command="{Binding groupByAreaCommand}">Area</Button>
+                <Button Command="{Binding saveButtonCommand}">Save</Button>
+                <Button Command="{Binding deleteButtonCommand}">Delete</Button>
+            </StackPanel>
+        </StackPanel>
+        
     </Grid>
 </UserControl>
