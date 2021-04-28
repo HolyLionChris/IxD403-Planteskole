@@ -34,6 +34,7 @@ namespace Planteskole.WPF.Views
         public AddView()
         {
             InitializeComponent();
+            
             PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
             LocationViewSource = (CollectionViewSource)FindResource(nameof(LocationViewSource));
             AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
