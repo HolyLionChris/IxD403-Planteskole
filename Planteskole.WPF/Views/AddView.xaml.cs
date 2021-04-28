@@ -85,6 +85,8 @@ namespace Planteskole.WPF.Views
                 this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
                 this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
                 this.PlantDataGrid.Visibility = Visibility.Visible;
+                this.LocationDataGrid.Visibility = Visibility.Collapsed;
+                this.AreaDataGrid.Visibility = Visibility.Collapsed;
                 PlantDataGrid.Items.Refresh();
                 LocationDataGrid.Items.Refresh();
                 AreaDataGrid.Items.Refresh();
@@ -112,6 +114,8 @@ namespace Planteskole.WPF.Views
                 this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
                 this.StackPanelInfoArea.Visibility = Visibility.Visible;
                 this.AreaDataGrid.Visibility = Visibility.Visible;
+                this.PlantDataGrid.Visibility = Visibility.Collapsed;
+                this.LocationDataGrid.Visibility = Visibility.Collapsed;
                 PlantDataGrid.Items.Refresh();
                 LocationDataGrid.Items.Refresh();
                 AreaDataGrid.Items.Refresh();
@@ -137,6 +141,8 @@ namespace Planteskole.WPF.Views
                 this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
                 this.StackPanelInfoLocation.Visibility = Visibility.Visible;
                 this.LocationDataGrid.Visibility = Visibility.Visible;
+                this.PlantDataGrid.Visibility = Visibility.Collapsed;
+                this.AreaDataGrid.Visibility = Visibility.Collapsed;
                 PlantDataGrid.Items.Refresh();
                 LocationDataGrid.Items.Refresh();
                 AreaDataGrid.Items.Refresh();
