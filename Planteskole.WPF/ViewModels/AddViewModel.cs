@@ -15,16 +15,21 @@ namespace Planteskole.WPF.ViewModels
         public Plant SelectedItem
         {
             get { return _selectedItem; }
-            set { _selectedItem = value; NoticeMe("SelectedItem"); ButtonAddContent = "Add"; }
+            set { _selectedItem = value; NoticeMe("SelectedItem");}
         }
-
-        private string _buttonAddContent;
-        public string ButtonAddContent
+        private Location _selectedItemLocation;
+        public Location SelectedItemLocation
         {
-            get { return _buttonAddContent; }
-
-            set { _buttonAddContent = value; NoticeMe("ButtonAddContent"); }
+            get { return _selectedItemLocation; }
+            set { _selectedItemLocation = value; NoticeMe("SelectedItemLocation"); }
         }
+        private Area _selectedItemArea;
+        public Area SelectedItemArea
+        {
+            get { return _selectedItemArea; }
+            set { _selectedItemArea = value; NoticeMe("SelectedItemArea"); }
+        }
+
 
 
 

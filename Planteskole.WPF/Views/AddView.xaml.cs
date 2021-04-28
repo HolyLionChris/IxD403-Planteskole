@@ -29,12 +29,14 @@ namespace Planteskole.WPF.Views
     {
         private readonly PlantContext _context = new PlantContext();
 
-        private CollectionViewSource PlantViewSource;
+        private CollectionViewSource PlantViewSource, LocationViewSource, AreaViewSource;
 
         public AddView()
         {
             InitializeComponent();
             PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
+            LocationViewSource = (CollectionViewSource)FindResource(nameof(LocationViewSource));
+            AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
 
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +52,12 @@ namespace Planteskole.WPF.Views
 
             // bind to the source
             PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
+
+            _context.Locations.Load();
+            LocationViewSource.Source = _context.Locations.Local.ToObservableCollection();
+
+            _context.Areas.Load();
+            AreaViewSource.Source = _context.Areas.Local.ToObservableCollection();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -59,6 +67,8 @@ namespace Planteskole.WPF.Views
 
             // this forces the grid to refresh to latest values
             PlantDataGrid.Items.Refresh();
+            LocationDataGrid.Items.Refresh();
+            AreaDataGrid.Items.Refresh();
         }
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +76,83 @@ namespace Planteskole.WPF.Views
             _context.SaveChanges();
             //PlantDataGrid.Items.Refresh();
 
+        }
+        private void TogglingButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.StackPanelInfoPlant.Visibility == Visibility.Collapsed)
+            {
+                this.StackPanelInfoPlant.Visibility = Visibility.Visible;
+                this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+                this.PlantDataGrid.Visibility = Visibility.Visible;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
+            else
+            {
+                this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+                this.PlantDataGrid.Visibility = Visibility.Collapsed;
+                this.LocationDataGrid.Visibility = Visibility.Collapsed;
+                this.AreaDataGrid.Visibility = Visibility.Collapsed;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
+        }
+
+
+        private void TogglingButtonClickedArea(object sender, RoutedEventArgs e)
+        {
+            if (this.StackPanelInfoArea.Visibility == Visibility.Collapsed)
+            {
+                this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoArea.Visibility = Visibility.Visible;
+                this.AreaDataGrid.Visibility = Visibility.Visible;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
+            else
+            {
+                this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+                this.PlantDataGrid.Visibility = Visibility.Collapsed;
+                this.LocationDataGrid.Visibility = Visibility.Collapsed;
+                this.AreaDataGrid.Visibility = Visibility.Collapsed;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
+        }
+        private void TogglingButtonClickedLocation(object sender, RoutedEventArgs e)
+        {
+            if (this.StackPanelInfoLocation.Visibility == Visibility.Collapsed)
+            {
+                this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoLocation.Visibility = Visibility.Visible;
+                this.LocationDataGrid.Visibility = Visibility.Visible;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
+            else
+            {
+                this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+                this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+                this.PlantDataGrid.Visibility = Visibility.Collapsed;
+                this.LocationDataGrid.Visibility = Visibility.Collapsed;
+                this.AreaDataGrid.Visibility = Visibility.Collapsed;
+                PlantDataGrid.Items.Refresh();
+                LocationDataGrid.Items.Refresh();
+                AreaDataGrid.Items.Refresh();
+            }
         }
     }
 }

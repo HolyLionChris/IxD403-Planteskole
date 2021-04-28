@@ -8,30 +8,38 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <CollectionViewSource x:Key="PlantViewSource"/>
+        <CollectionViewSource x:Key="LocationViewSource"/>
+        <CollectionViewSource x:Key="AreaViewSource"/>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60*"></ColumnDefinition>
             <ColumnDefinition Width="100*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" >
+            <Button x:Name="TogglingButton" Content="Add Plant" Click="TogglingButtonClicked" />
+            <Button x:Name="TogglingButtonArea" Content="Add Area" Click="TogglingButtonClickedArea" />
+            <Button x:Name="TogglingButtonLocation" Content="Add Area" Click="TogglingButtonClickedLocation" />
+        </StackPanel>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfo">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Collapsed">
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
             <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
-            
+
             <TextBlock Margin="0,5" Text="Amount:"/>
             <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay}"/>
-            
+
             <TextBlock Margin="0,5" Text="Weight:"/>
             <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay}"/>
-            
+
             <TextBlock Margin="0,5" Text="Depth:"/>
             <TextBox Text="{Binding SelectedItem.Depth, Mode=TwoWay}"/>
-            
+
             <TextBlock Margin="0,5" Text="Width:"/>
             <TextBox Text="{Binding SelectedItem.Width, Mode=TwoWay}"/>
 
@@ -43,26 +51,29 @@
 
             <TextBlock Margin="0,5" Text="Where it needs to go:"/>
             <TextBox Text="{Binding SelectedItem.LocationId, Mode=TwoWay}"/>
-            <UniformGrid Margin="0,5" Rows="1" >
-                
-                <Button Margin="0,0,10,0" Content="Refresh" Command="{Binding RefreshEvent}"/>
-                <Button Margin="10,0,10,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click"/>
-                <Button Margin="10,0,0,0" Content="{Binding ButtonAddContent}" Command="{Binding AddEvent}"/>
-                
-            </UniformGrid>
-            <Button Content="Save" Click="Button_Click"/>
 
         </StackPanel>
+        <UniformGrid Rows="1" Grid.Row="2">
+            <Button Content="Refresh" Command="{Binding RefreshEvent}" Grid.Row="1"/>
+            <Button Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click" Grid.Row="1"/>
+            <Button Content="{Binding ButtonAddContent}" Command="{Binding AddEvent}" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Button Content="Save" Click="Button_Click" Grid.Row="2"/>
+        </UniformGrid>
+
+
+
+       
 
         <!--
         <Button Content="&lt;" HorizontalAlignment="Left" Padding="10,2,10,2"  VerticalAlignment="Top" Command="{Binding PreviousEvent}" />
         <Button Content="&gt;" HorizontalAlignment="Right" Padding="10,2,10,2" VerticalAlignment="Top" Command="{Binding NextEvent}" />
         -->
-        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="25,0,0,0">
+        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
             <DataGrid x:Name="PlantDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource PlantViewSource}}" 
-                      RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}">
+                      RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
+                      Visibility="Collapsed">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
@@ -78,5 +89,74 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
+        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+            <DataGrid x:Name="AreaDataGrid" AutoGenerateColumns="False" 
+                      EnableRowVirtualization="True" 
+                      ItemsSource="{Binding Source={StaticResource AreaViewSource}}" 
+                      RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemArea}"
+                      Visibility="Collapsed">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Name="StackPanelInfoArea" Visibility="Collapsed">
+            <TextBlock Margin="0,0,0,5" Text="Name of the Area:"/>
+            <TextBox Text="{Binding SelectedItemArea.Name, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="ID:"/>
+            <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay}"/>
+            <UniformGrid Margin="0,5" Rows="1" >
+
+
+            </UniformGrid>
+
+
+        </StackPanel>
+
+        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+            <DataGrid x:Name="LocationDataGrid" AutoGenerateColumns="False" 
+                      EnableRowVirtualization="True" 
+                      ItemsSource="{Binding Source={StaticResource LocationViewSource}}" 
+                      RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemLocation}"
+                      Visibility="Collapsed">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding BottomWater}" Header="Amount" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding NormalWatering}" Header="Sellable" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Warm}" Header="Weight" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Light}" Header="Depth" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Cold}" Header="Width" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AreaId}" Header="TemplateId" Width="auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed">
+            <TextBlock Margin="0,0,0,5" Text="Name of the Location:"/>
+            <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="ID:"/>
+            <TextBox Text="{Binding SelectedItemLocation.Id, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="Bottom Water:"/>
+            <TextBox Text="{Binding SelectedItemLocation.BottomWater, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="Normal Watering:"/>
+            <TextBox Text="{Binding SelectedItemLocation.NormalWatering, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="Warm:"/>
+            <TextBox Text="{Binding SelectedItemLocation.Warm, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="Light:"/>
+            <TextBox Text="{Binding SelectedItemLocation.Light, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="Cold:"/>
+            <TextBox Text="{Binding SelectedItemLocation.Cold, Mode=TwoWay}"/>
+            <TextBlock Margin="0,5" Text="AreaID:"/>
+            <TextBox Text="{Binding SelectedItemLocation.AreaId, Mode=TwoWay}"/>
+            <UniformGrid Margin="0,5" Rows="1" >
+
+
+            </UniformGrid>
+
+
+        </StackPanel>
     </Grid>
 </UserControl>
