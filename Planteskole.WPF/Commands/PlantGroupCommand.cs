@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Planteskole.WPF.Commands
 {
-    class OrderGroupCommand : ICommand
+    class PlantGroupCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -22,9 +22,9 @@ namespace Planteskole.WPF.Commands
             this._viewModel.RemoveGroup();
         }
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public OrderGroupCommand(OrdersViewModel viewModel)
+        public PlantGroupCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
@@ -44,9 +44,9 @@ namespace Planteskole.WPF.Commands
             this._viewModel.GroupByLocation();
         }
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public GroupByLocationCommand(OrdersViewModel viewModel)
+        public GroupByLocationCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
@@ -69,9 +69,9 @@ namespace Planteskole.WPF.Commands
 
         #endregion
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public RemoveGroupCommand(OrdersViewModel viewModel)
+        public RemoveGroupCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
@@ -91,9 +91,9 @@ namespace Planteskole.WPF.Commands
             this._viewModel.GroupByArea();
         }
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public GroupByAreaCommand(OrdersViewModel viewModel)
+        public GroupByAreaCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
@@ -114,9 +114,9 @@ namespace Planteskole.WPF.Commands
             this._viewModel.SaveButton();
         }
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public SaveButtonCommand(OrdersViewModel viewModel)
+        public SaveButtonCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
@@ -137,9 +137,9 @@ namespace Planteskole.WPF.Commands
             this._viewModel.DeleteButton();
         }
 
-        private OrdersViewModel _viewModel;
+        private HomeViewModel _viewModel;
 
-        public DeleteButtonCommand(OrdersViewModel viewModel)
+        public DeleteButtonCommand(HomeViewModel viewModel)
         {
             this._viewModel = viewModel;
         }

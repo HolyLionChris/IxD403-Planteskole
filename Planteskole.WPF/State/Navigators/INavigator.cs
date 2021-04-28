@@ -13,7 +13,6 @@ namespace Planteskole.WPF.State.Navigators
         Home,
         Add,
         Database,
-        Testing,
     }
     public interface INavigator
     {

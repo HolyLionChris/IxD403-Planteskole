@@ -20,9 +20,6 @@
             <DataTemplate DataType="{x:Type viewmodels:DatabaseViewModel}">
                 <views:DatabaseView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:OrdersViewModel}">
-                <views:TestingView/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
