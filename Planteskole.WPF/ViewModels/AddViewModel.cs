@@ -27,7 +27,7 @@ namespace Planteskole.WPF.ViewModels
         public Plant SelectedItem
         {
             get { return _selectedItem; }
-            set { _selectedItem = value; NoticeMe("SelectedItem");}
+            set { _selectedItem = value; NoticeMe("SelectedItem"); SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
         }
         private Location _selectedItemLocation;
         public Location SelectedItemLocation
@@ -41,6 +41,14 @@ namespace Planteskole.WPF.ViewModels
             get { return _selectedItemArea; }
             set { _selectedItemArea = value; NoticeMe("SelectedItemArea"); }
         }
+
+        public bool SuggestPlacementFilter(object de)
+        {
+            Location loc = de as Location;
+            //Compares - TEMPORARY
+            return (loc.Warm == _selectedItem.Sellable);
+        }
+
 
 
 

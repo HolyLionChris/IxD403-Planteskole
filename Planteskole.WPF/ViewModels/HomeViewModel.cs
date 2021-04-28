@@ -25,7 +25,7 @@ namespace Planteskole.WPF.ViewModels
 
         public HomeViewModel()
         {
-            //_context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();
             IList<Location> locations = _context.Locations.Local.ToObservableCollection();
