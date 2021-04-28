@@ -1,15 +1,27 @@
-﻿using Planteskole.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Planteskole.Domain.Models;
+using Planteskole.WPF.Temporary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        public ICollectionView SuggestL { get; set; }
+        private readonly PlantContext _context = new PlantContext();
+
+        public AddViewModel()
+        {
+            _context.Locations.Load();
+            IList<Location> ListSuggestL = _context.Locations.Local.ToObservableCollection();
+            SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
+        }
 
         private Plant _selectedItem;
         public Plant SelectedItem
