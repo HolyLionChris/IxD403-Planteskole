@@ -49,15 +49,6 @@ namespace Planteskole.WPF.ViewModels
             return (loc.Warm == _selectedItem.Sellable);
         }
 
-
-
-
-
-
-
-
-
-
         protected void NoticeMe(string property)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

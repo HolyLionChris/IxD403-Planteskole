@@ -72,7 +72,6 @@
             <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
             <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
             <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/>
-            <Button Command="{Binding testingCommand}" Content="Testing" Margin="2" Padding="5"/>
         </StackPanel>
 
     </Grid>
