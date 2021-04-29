@@ -45,7 +45,7 @@
             <TextBox Text="{Binding SelectedItem.Width, Mode=TwoWay}"/>
 
             <TextBlock Margin="0,5" Text="Location:"/>
-            <TextBox Text="{Binding SelectedItem.Location, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.LocationName, Mode=TwoWay}"/>
 
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.Area, Mode=TwoWay}"/>
@@ -55,7 +55,7 @@
 
             <DataGrid ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding LocationName}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -70,13 +70,13 @@
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Selleble}" Header="Sellable" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Weight}" Header="Weight" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding TemplateId}" Header="TemplateId" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LocationId}" Header="LocationId" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Location}" Header="Location" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Area}" Header="Area" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -110,13 +110,13 @@
                       Visibility="Collapsed">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding BottomWater}" Header="Amount" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding NormalWatering}" Header="Sellable" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Warm}" Header="Weight" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Light}" Header="Depth" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Cold}" Header="Width" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding AreaId}" Header="TemplateId" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Name" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding BottomWater}" Header="BottomWater" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding NormalWatering}" Header="NormalWatering" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Warm}" Header="Warm" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Cold}" Header="Cold" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Area}" Header="Area" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -137,7 +137,7 @@
             <TextBlock Margin="0,5" Text="Cold:"/>
             <TextBox Text="{Binding SelectedItemLocation.Cold, Mode=TwoWay}"/>
             <TextBlock Margin="0,5" Text="AreaID:"/>
-            <TextBox Text="{Binding SelectedItemLocation.AreaId, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Area, Mode=TwoWay}"/>
         </StackPanel>
 
         <UniformGrid Rows="1" Grid.Row="2" Margin="2">

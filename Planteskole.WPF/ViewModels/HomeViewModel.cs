@@ -19,30 +19,29 @@ namespace Planteskole.WPF.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         public ICollectionView HomeView { get; set; }
-        public ICollectionView LocationView { get; set; }
 
         private readonly PlantContext _context = new PlantContext();
 
         public HomeViewModel()
         {
-            //_context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();
             IList<Location> locations = _context.Locations.Local.ToObservableCollection();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
-            HomeView = CollectionViewSource.GetDefaultView(plants);
-            LocationView = CollectionViewSource.GetDefaultView(locations);
+            List<Object> allS = (from x in plants select (Object)x).ToList();
+            allS.AddRange((from x in locations select (Object)x).ToList());
+            HomeView = CollectionViewSource.GetDefaultView(allS);
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
             groupByAreaCommand = new GroupByAreaCommand(this); 
             removeGroupCommand = new RemoveGroupCommand(this);
             saveButtonCommand = new SaveButtonCommand(this);
-            deleteButtonCommand = new DeleteButtonCommand(this);
-            testingCommand = new TestingButtonCommand(this); 
+            deleteButtonCommand = new DeleteButtonCommand(this); 
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
 
         }
 
@@ -56,7 +55,7 @@ namespace Planteskole.WPF.ViewModels
         {
             HomeView.GroupDescriptions.Clear();
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Location"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
         }
 
         public void GroupByArea()
@@ -75,11 +74,7 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Remove((Plant)HomeView.CurrentItem);
             _context.SaveChanges();
         }
-        public void TestingButton()
-        {
-            HomeView.GroupDescriptions.Clear();
-            LocationView.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
-        }
+       
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByLocationCommand
@@ -107,11 +102,6 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public ICommand deleteButtonCommand
-        {
-            get;
-            private set;
-        }
-        public ICommand testingCommand
         {
             get;
             private set;
