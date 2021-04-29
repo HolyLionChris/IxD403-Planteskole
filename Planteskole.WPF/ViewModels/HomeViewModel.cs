@@ -27,10 +27,15 @@ namespace Planteskole.WPF.ViewModels
             _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();
+            _context.Areas.Load();
+
             IList<Location> locations = _context.Locations.Local.ToObservableCollection();
+            IList<Area> areas = _context.Areas.Local.ToObservableCollection();
             IList<Plant> plants = _context.Plants.Local.ToObservableCollection();
             List<Object> allS = (from x in plants select (Object)x).ToList();
             allS.AddRange((from x in locations select (Object)x).ToList());
+            allS.AddRange((from x in areas select (Object)x).ToList());
+
             HomeView = CollectionViewSource.GetDefaultView(allS);
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
@@ -40,7 +45,7 @@ namespace Planteskole.WPF.ViewModels
             saveButtonCommand = new SaveButtonCommand(this);
             deleteButtonCommand = new DeleteButtonCommand(this); 
 
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
 
         }
@@ -54,14 +59,14 @@ namespace Planteskole.WPF.ViewModels
         public void GroupByLocation()
         {
             HomeView.GroupDescriptions.Clear();
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
         }
 
         public void GroupByArea()
         {
             HomeView.GroupDescriptions.Clear();
-            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("Area"));
+            HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
         }
 
         public void SaveButton()

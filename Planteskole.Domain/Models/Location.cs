@@ -14,6 +14,6 @@ namespace Planteskole.Domain.Models
         public bool Warm { get; set; }
         public bool Light { get; set; }
         public bool Cold { get; set; }
-        public string Area { get; set; }
+        public string AreaName { get; set; }
     }
 }
