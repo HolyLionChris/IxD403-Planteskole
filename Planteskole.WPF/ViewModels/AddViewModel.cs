@@ -45,8 +45,13 @@ namespace Planteskole.WPF.ViewModels
         public bool SuggestPlacementFilter(object de)
         {
             Location loc = de as Location;
-            //Compares - TEMPORARY
-            return (loc.Warm == _selectedItem.Sellable);
+            bool returnBool = false;
+            if (_selectedItem != null) 
+            {
+                //Compares - TEMPORARY
+                returnBool = (loc.Warm == _selectedItem.Sellable);
+            }
+            return returnBool;
         }
 
         protected void NoticeMe(string property)

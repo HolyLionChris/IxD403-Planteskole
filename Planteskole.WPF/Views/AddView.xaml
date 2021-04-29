@@ -24,8 +24,8 @@
 
         <UniformGrid Rows="1" Grid.Row="0" Margin="2">
             <Button Margin="2,0" x:Name="TogglingButton" Content="Add Plant" Click="TogglingButtonClicked" />
+            <Button Margin="2,0" x:Name="TogglingButtonLocation" Content="Add Location" Click="TogglingButtonClickedLocation" />
             <Button Margin="2,0" x:Name="TogglingButtonArea" Content="Add Area" Click="TogglingButtonClickedArea" />
-            <Button Margin="2,0" x:Name="TogglingButtonLocation" Content="Add Area" Click="TogglingButtonClickedLocation" />
         </UniformGrid>
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Visible">
