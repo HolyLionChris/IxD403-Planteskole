@@ -28,7 +28,7 @@
             <Button Margin="2,0" x:Name="TogglingButtonLocation" Content="Add Area" Click="TogglingButtonClickedLocation" />
         </UniformGrid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Collapsed">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Visible">
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
             <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
 
@@ -65,7 +65,7 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource PlantViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
-                      Visibility="Collapsed">
+                      Visibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
