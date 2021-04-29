@@ -8,6 +8,13 @@ namespace Planteskole.Domain.Models
 {
     public class Area : DomainObject
     {
-        public string Name { get; set; }
+        public string AreaName { get; set; }
+        public string LocationName
+        {
+            get
+            {
+                return "Ghost Item";
+            }
+        }
     }
 }
