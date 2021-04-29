@@ -25,7 +25,7 @@
                     <DataGridTextColumn Header="Depth" Binding="{Binding Depth}"/>
                     <DataGridTextColumn Header="Width" Binding="{Binding Width}"/>
                     <DataGridTextColumn Header="Area" Binding="{Binding Area}"/>
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" />
+                    <DataGridTextColumn Header="Location" Binding="{Binding LocationName}" />
                 </DataGrid.Columns>
                 <DataGrid.GroupStyle>
                     <GroupStyle>

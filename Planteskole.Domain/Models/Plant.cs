@@ -19,7 +19,7 @@ namespace Planteskole.Domain.Models
         public int Width { get; set; }
         public int TemplateId { get; set; }
         public int LocationId { get; set; }
-        public string Location { get; set; }
+        public string LocationName { get; set; }
         public string Area { get; set; }
         public string noGroup
         {
