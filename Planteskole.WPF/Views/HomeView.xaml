@@ -36,7 +36,7 @@
 
         <ScrollViewer>
             <StackPanel Grid.Row="0" Margin="10">
-                <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False">
+                <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
