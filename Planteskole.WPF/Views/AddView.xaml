@@ -50,9 +50,13 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
-            <DataGrid ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" Margin="0,5">
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" Margin="0,5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding LocationName}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Watering Method" Binding="{Binding WMethod, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -79,7 +83,7 @@
                     
                     <DataGridTextColumn Binding="{Binding FootEnum}" Header="Foot Type" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding WNeeds}" Header="Watering Needs" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature Needs" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

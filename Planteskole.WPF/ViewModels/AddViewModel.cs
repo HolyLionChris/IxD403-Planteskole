@@ -27,7 +27,9 @@ namespace Planteskole.WPF.ViewModels
         public Plant SelectedItem
         {
             get { return _selectedItem; }
-            set { _selectedItem = value; NoticeMe("SelectedItem"); SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
+            set { _selectedItem = value; 
+                  NoticeMe("SelectedItem"); 
+                  SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
         }
         private Location _selectedItemLocation;
         public Location SelectedItemLocation
@@ -45,14 +47,99 @@ namespace Planteskole.WPF.ViewModels
         public bool SuggestPlacementFilter(object de)
         {
             Location loc = de as Location;
-            bool returnBool = false;
+            bool isCompatible = false;
             if (_selectedItem != null) 
             {
-                //Compares - TEMPORARY
-                returnBool = (loc.Light == _selectedItem.Sellable);
+                //Compares - These two functions are nested, so we don't call the individual comparisons when _selectedItem is null. Might be changed later
+                isCompatible = IsCompatibleWithAllProperties(_selectedItem, loc);
             }
-            return returnBool;
+            return isCompatible;
         }
+
+        public bool IsCompatibleWithAllProperties(Plant plt, Location loc) 
+        {
+            bool isCompatible = false;
+
+            if (EnoughSpace(plt, loc) 
+                && LightCompatible(plt, loc) 
+                && WateringCompatible(plt, loc) 
+                && TemperatureCompatible(plt, loc) 
+                && TreeSupportCompatible(plt, loc)) 
+            {
+                isCompatible = true;
+            }
+
+            return isCompatible;
+        }
+
+        public bool EnoughSpace(Plant plt, Location loc) 
+        {
+            bool spaceCompatible = false;
+
+            // vv Temporary vv
+            spaceCompatible = true;
+            // ^^ Temporary ^^
+
+            return spaceCompatible;
+        }
+
+        public bool LightCompatible(Plant plt, Location loc)
+        {
+            bool lightCompatible = false;
+
+            //Only incompatible if the plant DOES need light but the location does NOT provide light
+            if (!((plt.NeedsLight == true) && (loc.Light == false))) 
+            {
+                lightCompatible = true;
+            }
+
+            return lightCompatible;
+        }
+
+        public bool WateringCompatible(Plant plt, Location loc)
+        {
+            bool wateringCompatible = false;
+
+            //Compatible if neither plant nor location is NA and watering need and method is the same
+            if (plt.WNeeds != Plant.WateringNeeds.NA
+                && loc.WMethod != Location.WateringMethod.NA
+                && (int)plt.WNeeds == (int)loc.WMethod)
+            {
+                wateringCompatible = true;
+            }
+
+            return wateringCompatible;
+        }
+
+        public bool TemperatureCompatible(Plant plt, Location loc)
+        {
+            bool temperatureCompatible = false;
+
+            //Compatible if neither plant nor location is NA and temperature need and provision is the same
+            if (plt.PTemperature != Plant.TemperatureNeeds.NA
+                && loc.LTemperatures != Location.Temperatures.NA
+                && (int)plt.PTemperature == (int)loc.LTemperatures)
+            {
+                temperatureCompatible = true;
+            }
+
+            return temperatureCompatible;
+        }
+
+        public bool TreeSupportCompatible(Plant plt, Location loc)
+        {
+            bool treeSupCompatible = false;
+
+            //Only incompatible if the plant DOES need light but the location does NOT provide light
+            if (!((plt.NeedsTreeSupport == true) && (loc.TreeSupport == false)))
+            {
+                treeSupCompatible = true;
+            }
+
+            return treeSupCompatible;
+        }
+
+
 
         protected void NoticeMe(string property)
         {
