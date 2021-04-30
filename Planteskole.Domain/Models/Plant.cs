@@ -8,19 +8,29 @@ using System.Collections.ObjectModel;
 
 namespace Planteskole.Domain.Models
 {
+    
     public class Plant : DomainObject
     {
+        public enum FootType { NA, Pot, BareRoot, Lump }
+        public enum WateringNeeds { NA, BottomWatering, AboveWatering }
+        public enum TemperatureNeeds { NA, Cold, Moderate, Warmth }
+
         //[Key] also - Having empty lines here fucks up the data table creation in database
         public string Name { get; set; }
         public int Amount { get; set; }
         public bool Sellable { get; set; }
-        public int Weight { get; set; }
-        public int Depth { get; set; }
-        public int Width { get; set; }
-        public int TemplateId { get; set; }
-        public int LocationId { get; set; }
+        public bool NeedsLight { get; set; }
+        public bool Vulnerable { get; set; }
+        public bool NeedsTreeSupport { get; set; }
+        public int WeightPerPlant { get; set; }
+        public int DepthPerPlant { get; set; }
+        public int WidthPerPlant { get; set; }
         public string LocationName { get; set; }
         public string AreaName { get; set; }
+        public FootType FootEnum { get; set; } = FootType.NA;
+        public WateringNeeds WNeeds { get; set; } = WateringNeeds.NA;
+        public TemperatureNeeds PTemperature { get; set; } = TemperatureNeeds.NA;
+
         public string noGroup
         {
             get

@@ -19,16 +19,23 @@
             <StackPanel Grid.Row="0" Margin="10">
                 <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                        <DataGridCheckBoxColumn Header="Sellable" Binding="{Binding Sellable}"/>
-                        <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
-                        <DataGridTextColumn Header="Depth" Binding="{Binding Depth}"/>
-                        <DataGridTextColumn Header="Width" Binding="{Binding Width}"/>
-                        <DataGridTextColumn Header="Depth" Binding="{Binding Depth}"/>
-                        <DataGridTextColumn Header="Width" Binding="{Binding Width}"/>
-                        <DataGridTextColumn Header="Location" Binding="{Binding LocationName}"/>
-                        <DataGridTextColumn Header="Area" Binding="{Binding AreaName}"/>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                        <!--Remove later-->
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
+                        <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
+                        <DataGridCheckBoxColumn Binding="{Binding NeedsLight}" Header="Needs Light" Width="auto"/>
+                        <DataGridCheckBoxColumn Binding="{Binding Vulnerable}" Header="Vulnerable" Width="auto"/>
+                        <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport}" Header="Needs Tree Support" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
+
+                        <DataGridTextColumn Binding="{Binding FootEnum}" Header="Foot Type" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding WNeeds}" Header="Watering Needs" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature" Width="auto"/>
 
                     </DataGrid.Columns>
                     <DataGrid.GroupStyle>

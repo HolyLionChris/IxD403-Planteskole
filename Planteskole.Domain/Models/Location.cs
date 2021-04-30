@@ -8,12 +8,17 @@ namespace Planteskole.Domain.Models
 {
     public class Location : DomainObject
     {
+        public enum WateringMethod { NA, BottomWatering, AboveWatering }
+        public enum Temperatures { NA, Cold, Moderate, Warmth }
+
+
         public string LocationName { get; set; }
-        public bool BottomWater { get; set; }
-        public bool NormalWatering { get; set; }
-        public bool Warm { get; set; }
+        public WateringMethod WMethod { get; set; }
+        public Temperatures LTemperatures { get; set; }
         public bool Light { get; set; }
-        public bool Cold { get; set; }
+        public int Depth { get; set; }
+        public int Width { get; set; }
         public string AreaName { get; set; }
+        public bool TreeSupport { get; set; }
     }
 }

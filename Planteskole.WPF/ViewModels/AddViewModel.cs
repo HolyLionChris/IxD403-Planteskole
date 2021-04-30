@@ -49,7 +49,7 @@ namespace Planteskole.WPF.ViewModels
             if (_selectedItem != null) 
             {
                 //Compares - TEMPORARY
-                returnBool = (loc.Warm == _selectedItem.Sellable);
+                returnBool = (loc.Light == _selectedItem.Sellable);
             }
             return returnBool;
         }
