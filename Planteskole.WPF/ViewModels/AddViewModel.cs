@@ -140,7 +140,6 @@ namespace Planteskole.WPF.ViewModels
         }
 
 
-
         protected void NoticeMe(string property)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -149,6 +148,5 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

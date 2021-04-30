@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Planteskole.WPF.ViewModels"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:Planteskole.Domain.Models;assembly=Planteskole.Domain"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+FootType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumWateringNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+WateringNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumTemperatureNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+TemperatureNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
   
     <Grid>
         <Grid.RowDefinitions>
@@ -33,9 +52,9 @@
                         <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                         <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
 
-                        <DataGridTextColumn Binding="{Binding FootEnum}" Header="Foot Type" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding WNeeds}" Header="Watering Needs" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature Needs" Width="auto"/>
+                        <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
+                        <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
+                        <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
 
                     </DataGrid.Columns>
                     <DataGrid.GroupStyle>

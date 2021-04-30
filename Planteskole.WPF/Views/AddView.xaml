@@ -4,12 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Planteskole.WPF.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:Planteskole.Domain.Models;assembly=Planteskole.Domain"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <CollectionViewSource x:Key="PlantViewSource"/>
         <CollectionViewSource x:Key="LocationViewSource"/>
         <CollectionViewSource x:Key="AreaViewSource"/>
+        <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+FootType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumWateringNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+WateringNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumTemperatureNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+TemperatureNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="EnumWateringMethod" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Location+WateringMethod"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumTemperatures" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Location+Temperatures"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -18,7 +47,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="360"></ColumnDefinition>
             <ColumnDefinition Width="100*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -50,13 +79,14 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" Margin="0,5">
+            <TextBlock Margin="0,5" Text="Suggested Location:"/>
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Watering Method" Binding="{Binding WMethod, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -66,7 +96,8 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource PlantViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
-                      Visibility="Visible">
+                      Visibility="Visible"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/> <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
@@ -80,10 +111,10 @@
                     <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
-                    
-                    <DataGridTextColumn Binding="{Binding FootEnum}" Header="Foot Type" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WNeeds}" Header="Watering Needs" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature Needs" Width="auto"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -93,7 +124,8 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource AreaViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemArea}"
-                      Visibility="Collapsed">
+                      Visibility="Collapsed"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Name" Width="auto"/>
@@ -113,16 +145,19 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource LocationViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemLocation}"
-                      Visibility="Collapsed">
+                      Visibility="Collapsed"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Name of Location" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WMethod}" Header="Watering Method" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding LTemperatures}" Header="Temperature" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringMethod}}" SelectedItemBinding="{Binding WMethod}" Header="Watering Method"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatures}}" SelectedItemBinding="{Binding LTemperatures}" Header="Temperature"/>
+
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -152,6 +187,8 @@
             <Button Margin="2,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click" Grid.Row="1"/>
             <Button Margin="2,0" Content="Save" Click="Button_Click" Grid.Row="2"/>
         </UniformGrid>
+
+        
 
     </Grid>
 </UserControl>
