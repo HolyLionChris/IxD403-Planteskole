@@ -38,5 +38,10 @@ namespace Planteskole.WPF.Views
                 grd.BeginEdit(e);
             }
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
