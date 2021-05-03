@@ -14,6 +14,7 @@ namespace Planteskole.WPF.ViewModels
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ICollectionView SuggestL { get; set; }
+        public ICollectionView TemplateName { get; set; }
         private readonly PlantContext _context = new PlantContext();
 
         public AddViewModel()
@@ -21,6 +22,11 @@ namespace Planteskole.WPF.ViewModels
             _context.Locations.Load();
             IList<Location> ListSuggestL = _context.Locations.Local.ToObservableCollection();
             SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
+
+            _context.Templates.Load();
+            IList<Template> TemplateNameSuggest = _context.Templates.Local.ToObservableCollection();
+            TemplateName = CollectionViewSource.GetDefaultView(TemplateNameSuggest);
+
         }
 
         private Plant _selectedItem;
