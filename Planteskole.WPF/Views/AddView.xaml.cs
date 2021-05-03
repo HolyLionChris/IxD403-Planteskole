@@ -58,7 +58,19 @@ namespace Planteskole.WPF.Views
         }
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+            if (StackPanelInfoPlant.IsVisible == true)
+            {
+                _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoLocation.IsVisible == true)
+            {
+                _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoArea.IsVisible == true)
+            {
+                _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+            }
+
             _context.SaveChanges();
             //PlantDataGrid.Items.Refresh();
 

@@ -8,7 +8,34 @@
              xmlns:enums="clr-namespace:Planteskole.Domain.Models;assembly=Planteskole.Domain"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <UserControl.Resources>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoPlant">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoLocation">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoArea">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <CollectionViewSource x:Key="PlantViewSource"/>
         <CollectionViewSource x:Key="LocationViewSource"/>
         <CollectionViewSource x:Key="AreaViewSource"/>
@@ -57,7 +84,7 @@
             <Button Margin="2,0" x:Name="TogglingButtonArea" Content="Add Area" Click="TogglingButtonClickedArea" />
         </UniformGrid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Visible">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
             <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
 
@@ -163,7 +190,7 @@
             </DataGrid>
         </Grid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed" >
             <TextBlock Margin="0,0,0,5" Text="Name of the Location:"/>
             <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay}"/>
             <TextBlock Margin="0,5" Text="ID:"/>
