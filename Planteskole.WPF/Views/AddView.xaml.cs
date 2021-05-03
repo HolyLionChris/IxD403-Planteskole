@@ -11,13 +11,12 @@ namespace Planteskole.WPF.Views
     /// <summary>
     /// Interaction logic for AddView.xaml
     /// </summary>
-    public partial class AddView : UserControl, INotifyPropertyChanged 
+    public partial class AddView : UserControl 
     {
         private readonly PlantContext _context = new PlantContext();
 
         private CollectionViewSource PlantViewSource, LocationViewSource, AreaViewSource;
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public AddView()
         {

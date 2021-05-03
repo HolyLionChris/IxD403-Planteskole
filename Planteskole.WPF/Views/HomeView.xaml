@@ -35,7 +35,7 @@
 
 
         <ScrollViewer>
-            <StackPanel Grid.Row="0" Margin="10">
+            <StackPanel x:Name="print" Grid.Row="0" Margin="10">
                 <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" >
                     <DataGrid.Columns >
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
@@ -104,7 +104,9 @@
             <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
             <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
             <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/>
+            <Button Content="Print" HorizontalAlignment="Right" Margin="2" Click="Button_Click_Print" Padding="5"/>
         </StackPanel>
+        
 
     </Grid>
 </UserControl>
