@@ -14,19 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Planteskole.WPF.ViewModels;
+using Planteskole.WPF.Commands;
 
 namespace Planteskole.WPF.Views
 {
   
     public partial class HomeView : UserControl
     {
-        
+
         public HomeView()
         {
             InitializeComponent();
             //PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
             DataContext = new ViewModels.HomeViewModel();
 
+        }
+
+        private void OnTargetUpdated(object sender, DataTransferEventArgs args)
+        {
+            var ctx = (HomeViewModel)this.DataContext;
+            ctx.AutoSave();
         }
         private void DataGridCell_Selected(object sender, RoutedEventArgs e)
         {
@@ -38,5 +45,6 @@ namespace Planteskole.WPF.Views
                 grd.BeginEdit(e);
             }
         }
+        
     }
 }

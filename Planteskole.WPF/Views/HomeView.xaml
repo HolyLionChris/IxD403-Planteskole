@@ -36,21 +36,21 @@
 
         <ScrollViewer>
             <StackPanel Grid.Row="0" Margin="10">
-                <DataGrid CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected">
-                    <DataGrid.Columns>
+                <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" >
+                    <DataGrid.Columns >
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
-                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
-                        <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
-                        <DataGridCheckBoxColumn Binding="{Binding NeedsLight}" Header="Needs Light" Width="auto"/>
-                        <DataGridCheckBoxColumn Binding="{Binding Vulnerable}" Header="Vulnerable" Width="auto"/>
-                        <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport}" Header="Needs Tree Support" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
-                        <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
+                        <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" />
+                        <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}" />
+                        <DataGridCheckBoxColumn Header="Sellable" Width="auto" Binding="{Binding Sellable}" />
+                        <DataGridCheckBoxColumn Header="Needs Light" Width="auto" Binding="{Binding NeedsLight}" />
+                        <DataGridCheckBoxColumn Header="Vulnerable" Width="auto" Binding="{Binding Vulnerable}" />
+                        <DataGridCheckBoxColumn Header="Needs Tree Support" Width="auto" Binding="{Binding NeedsTreeSupport}" />
+                        <DataGridTextColumn Header="Weight Per Plant" Width="auto" Binding="{Binding WeightPerPlant}" />
+                        <DataGridTextColumn Header="Depth Per Plant" Width="auto" Binding="{Binding DepthPerPlant}" />
+                        <DataGridTextColumn Header="Width Per Plant" Width="auto" Binding="{Binding WidthPerPlant}" />
+                        <DataGridTextColumn Header="Location" Width="auto" Binding="{Binding LocationName}" />
+                        <DataGridTextColumn Header="Area" Width="auto" Binding="{Binding AreaName}" />
 
                         <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
                         <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>

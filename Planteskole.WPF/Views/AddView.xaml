@@ -86,25 +86,25 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
-            <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated" />
 
             <TextBlock Margin="0,5" Text="Amount:"/>
-            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Weight:"/>
-            <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Depth:"/>
-            <TextBox Text="{Binding SelectedItem.Depth, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Depth, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Width:"/>
-            <TextBox Text="{Binding SelectedItem.Width, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Width, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Location:"/>
-            <TextBox Text="{Binding SelectedItem.LocationName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.LocationName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Area:"/>
-            <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
             <TextBlock Margin="0,5" Text="Suggested Location:"/>
             <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" >
@@ -162,9 +162,9 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoArea" Visibility="Collapsed">
             <TextBlock Margin="0,0,0,5" Text="Name of the Area:"/>
-            <TextBox Text="{Binding SelectedItemArea.AreaName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemArea.AreaName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="ID:"/>
-            <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
         </StackPanel>
 
         <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
@@ -192,21 +192,21 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed" >
             <TextBlock Margin="0,0,0,5" Text="Name of the Location:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="ID:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Id, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Id, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="Bottom Water:"/>
-            <TextBox Text="{Binding SelectedItemLocation.BottomWater, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.BottomWater, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="Normal Watering:"/>
-            <TextBox Text="{Binding SelectedItemLocation.NormalWatering, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.NormalWatering, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="Warm:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Warm, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Warm, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="Light:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Light, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Light, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="Cold:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Cold, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Cold, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="AreaID:"/>
-            <TextBox Text="{Binding SelectedItemLocation.AreaName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.AreaName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
         </StackPanel>
 
         <UniformGrid Rows="1" Grid.Row="2" Margin="2">

@@ -4,17 +4,20 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Planteskole.Domain.Models;
+using System.ComponentModel;
 
 namespace Planteskole.WPF.Views
 {
     /// <summary>
     /// Interaction logic for AddView.xaml
     /// </summary>
-    public partial class AddView : UserControl
+    public partial class AddView : UserControl, INotifyPropertyChanged 
     {
         private readonly PlantContext _context = new PlantContext();
 
         private CollectionViewSource PlantViewSource, LocationViewSource, AreaViewSource;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public AddView()
         {
@@ -122,6 +125,11 @@ namespace Planteskole.WPF.Views
                 DataGrid grd = (DataGrid)sender;
                 grd.BeginEdit(e);
             }
+        }
+
+        private void OnTargetUpdated(object sender, DataTransferEventArgs args)
+        {
+            _context.SaveChanges();
         }
     }
 }
