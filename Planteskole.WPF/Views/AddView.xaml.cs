@@ -71,7 +71,7 @@ namespace Planteskole.WPF.Views
                 _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
             }
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
             //PlantDataGrid.Items.Refresh();
 
         }
