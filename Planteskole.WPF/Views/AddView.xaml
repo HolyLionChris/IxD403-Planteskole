@@ -50,7 +50,7 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="True" Margin="0,5">
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="False" Margin="0,5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
