@@ -8,58 +8,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Collections.ObjectModel;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ICollectionView SuggestL { get; set; }
+        public CollectionViewSource SuggestL { get; private set; }
         public ICollectionView TemplateName { get; set; }
         private readonly PlantContext _context = new PlantContext();
 
         public AddViewModel()
         {
             _context.Locations.Load();
-            IList<Location> ListSuggestL = _context.Locations.Local.ToObservableCollection();
-            SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
+
+            SuggestL = new CollectionViewSource();
+            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
 
             _context.Templates.Load();
             IList<Template> TemplateNameSuggest = _context.Templates.Local.ToObservableCollection();
             TemplateName = CollectionViewSource.GetDefaultView(TemplateNameSuggest);
-
         }
 
+        #region Selected Items
         private Plant _selectedItem;
         public Plant SelectedItem
         {
             get { return _selectedItem; }
-            set { _selectedItem = value; 
-                  NoticeMe("SelectedItem"); 
-                  SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
+            set { _selectedItem = value;
+                  NoticeMe("SelectedItem");
+                  SuggestL.Filter += new FilterEventHandler(SuggestPlacementFilter);
+                  SuggestL.View.Refresh();
+            }
         }
+
+
         private Location _selectedItemLocation;
         public Location SelectedItemLocation
         {
             get { return _selectedItemLocation; }
             set { _selectedItemLocation = value; NoticeMe("SelectedItemLocation"); }
         }
+
+
         private Area _selectedItemArea;
         public Area SelectedItemArea
         {
             get { return _selectedItemArea; }
             set { _selectedItemArea = value; NoticeMe("SelectedItemArea"); }
         }
+        #endregion
 
-        public bool SuggestPlacementFilter(object de)
+        #region Suggested Location Filter
+        public void SuggestPlacementFilter(object sender, FilterEventArgs e)
         {
-            Location loc = de as Location;
-            bool isCompatible = false;
+            Location loc = e.Item as Location;
+            e.Accepted = false;
             if (_selectedItem != null) 
             {
                 //Compares - These two functions are nested, so we don't call the individual comparisons when _selectedItem is null. Might be changed later
-                isCompatible = IsCompatibleWithAllProperties(_selectedItem, loc);
+                e.Accepted = IsCompatibleWithAllProperties(_selectedItem, loc);
             }
-            return isCompatible;
         }
 
         public bool IsCompatibleWithAllProperties(Plant plt, Location loc) 
@@ -82,9 +91,11 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            // vv Temporary vv
-            spaceCompatible = true;
-            // ^^ Temporary ^^
+            loc.UpdateInfo(_context.Plants);
+            if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
+            {
+                spaceCompatible = true;
+            }
 
             return spaceCompatible;
         }
@@ -144,7 +155,18 @@ namespace Planteskole.WPF.ViewModels
 
             return treeSupCompatible;
         }
+        #endregion
 
+        #region UpdateLocations
+        //Updates available and occupied square feet for all locations in an enumerable
+        public void UpdateLocations(IEnumerable<Location> locs, DbSet<Plant> plantDbSet)
+        {
+            foreach (Location loc in locs)
+            {
+                loc.UpdateInfo(plantDbSet);
+            }
+        }
+        #endregion
 
         protected void NoticeMe(string property)
         {
