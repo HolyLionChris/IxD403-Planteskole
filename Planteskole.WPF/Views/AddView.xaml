@@ -100,11 +100,30 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Visible">
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
-            <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
+            <ComboBox ItemsSource="{Binding TemplateName}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.Name, Mode=TwoWay}" SelectedValuePath="Name" IsEditable="true"/>
 
             <TextBlock Margin="0,5" Text="Amount:"/>
             <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay}"/>
 
+            <UniformGrid Rows="1" Margin="0,5">
+                <StackPanel >
+                    <TextBlock Text="Sellable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Sellable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel >
+                    <TextBlock Text="Needs Light" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsLight, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Vulnerable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Vulnerable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Tree Support" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsTreeSupport, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
+            
             <TextBlock Margin="0,5" Text="Weight:"/>
             <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay}"/>
 
@@ -140,7 +159,8 @@
                       Visibility="Visible"
                       DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/> <!--Remove later-->
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
