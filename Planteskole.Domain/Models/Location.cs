@@ -21,46 +21,55 @@ namespace Planteskole.Domain.Models
         public bool TreeSupport { get; set; }
         public int Depth { get; set; }
         public int Width { get; set; }
+
+        #region SquareFeet Properties
         public double TotalSquareFeet
         {
             get{ return this.Depth * this.Width; }
             set { }
         }
 
+        //Be advised: These do NOT update square feet, only gets the last version
+        private double _occupiedSquareFeet;
         public double OccupiedSquareFeet 
-        {
-            get { return GetOccupiedSquareFeet(); }
+        { 
+            get { return _occupiedSquareFeet; } 
             set { } 
         }
 
-        public double AvailableSquareFeet 
+        private double _availableSquareFeet;
+        public double AvailableSquareFeet
         {
-            get { return GetAvailableSquareFeet(); }
-            set { } 
+            get { return _availableSquareFeet; }
+            set { }
+        }
+        #endregion
+
+        #region UpdateInfo Methods
+        public void UpdateInfo(DbSet<Plant> plantDbSet) 
+        {
+            this.UpdateOccupiedSquareFeet(plantDbSet);
+            this.UpdateAvailableSquareFeet(plantDbSet);
         }
 
-        public List<Plant> OccupyingPlants { get; set; }
-
-        #region GetSquareFeet Methods
-        public double GetAvailableSquareFeet() 
+        public void UpdateAvailableSquareFeet(DbSet<Plant> plantDbSet) 
         {
-            double availableSquareFeet = this.TotalSquareFeet - this.OccupiedSquareFeet;
-            return availableSquareFeet;
+            this.UpdateOccupiedSquareFeet(plantDbSet);
+            _availableSquareFeet = TotalSquareFeet - _occupiedSquareFeet;
         }
 
-        public double GetOccupiedSquareFeet() 
+        public void UpdateOccupiedSquareFeet(DbSet<Plant> plantDbSet) 
         {
-            double occupiedSquareFeet = 0;
-
-            if (OccupyingPlants != null)
+            if (plantDbSet != null)
             {
+                _occupiedSquareFeet = 0;
+                List<Plant> OccupyingPlants = plantDbSet.Where(b => b.LocationName == this.LocationName).ToList();
+
                 foreach (Plant plt in OccupyingPlants)
                 {
-                    occupiedSquareFeet += plt.TotalSquareFeet;
+                    _occupiedSquareFeet += plt.TotalSquareFeet;
                 }
             }
-
-            return occupiedSquareFeet;
         }
         #endregion
     }

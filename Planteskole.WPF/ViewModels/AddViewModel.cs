@@ -19,6 +19,7 @@ namespace Planteskole.WPF.ViewModels
         public AddViewModel()
         {
             _context.Locations.Load();
+            UpdateLocations(_context.Locations, _context.Plants);
             IList<Location> ListSuggestL = _context.Locations.Local.ToObservableCollection();
             SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
         }
@@ -30,6 +31,7 @@ namespace Planteskole.WPF.ViewModels
             get { return _selectedItem; }
             set { _selectedItem = value; 
                   NoticeMe("SelectedItem");
+                  //UpdateLocations(SuggestL, _context.Plants);
                   SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
         }
 
@@ -83,6 +85,7 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
+            loc.UpdateAvailableSquareFeet(_context.Plants);
             if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
             {
                 spaceCompatible = true;
@@ -145,6 +148,17 @@ namespace Planteskole.WPF.ViewModels
             }
 
             return treeSupCompatible;
+        }
+        #endregion
+
+        #region UpdateLocations
+        //Updates available and occupied square feet for all locations in an enumerable
+        public void UpdateLocations(IEnumerable<Location> locs, DbSet<Plant> plantDbSet)
+        {
+            foreach (Location loc in locs)
+            {
+                loc.UpdateInfo(plantDbSet);
+            }
         }
         #endregion
 
