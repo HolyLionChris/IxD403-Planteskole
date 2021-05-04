@@ -65,7 +65,48 @@
                 <x:Type TypeName="enums:Location+Temperatures"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="2" BorderBrush="{StaticResource BrushPrimary1}" BorderThickness="1" Background="{StaticResource BrushPrimary1}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Normal">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -86,11 +127,30 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
-            <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated" />
+            <ComboBox ItemsSource="{Binding TemplateName}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.Name, Mode=TwoWay}" SelectedValuePath="Name" IsEditable="true"/>
 
             <TextBlock Margin="0,5" Text="Amount:"/>
-            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
+            <UniformGrid Rows="1" Margin="0,5">
+                <StackPanel >
+                    <TextBlock Text="Sellable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Sellable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel >
+                    <TextBlock Text="Needs Light" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsLight, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Vulnerable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Vulnerable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Tree Support" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsTreeSupport, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
+            
             <TextBlock Margin="0,5" Text="Weight:"/>
             <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay}"/>
 
@@ -126,7 +186,8 @@
                       Visibility="Visible"
                       DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/> <!--Remove later-->
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>

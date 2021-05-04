@@ -25,8 +25,66 @@
                 <x:Type TypeName="enums:Plant+TemperatureNeeds"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="2" BorderBrush="{StaticResource BrushPrimary1}" BorderThickness="1" Background="{StaticResource BrushPrimary1}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Normal">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Foreground" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BrushPrimary1}" />
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource BrushPrimary1}" />
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <!-- Highlight a grid row as the mouse passes over -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BrushPrimary2}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+            
+        </Style>
     </UserControl.Resources>
-  
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -35,9 +93,10 @@
 
 
         <ScrollViewer>
+
             <StackPanel x:Name="print" Grid.Row="0" Margin="10">
-                <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" >
-                    <DataGrid.Columns >
+                <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
                         <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" />
@@ -97,9 +156,9 @@
             </StackPanel>
         </ScrollViewer>
         
-
+        
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10" HorizontalAlignment="Center" >
-            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5"/>
+            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5" />
             <Button Command="{Binding groupByLocationCommand}" Content="Location" Margin="2" Padding="5"/>
             <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
             <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
