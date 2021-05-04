@@ -14,15 +14,14 @@ namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ObservableCollection<Location> SuggestL { get; set; }
+        public CollectionViewSource SuggestL { get; private set; }
         private readonly PlantContext _context = new PlantContext();
 
         public AddViewModel()
         {
             _context.Locations.Load();
-            UpdateLocations(_context.Locations, _context.Plants);
-            _context.SaveChanges();
-            SuggestL = _context.Locations.Local.ToObservableCollection();
+            SuggestL = new CollectionViewSource();
+            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
         }
 
         #region Selected Items
@@ -30,13 +29,11 @@ namespace Planteskole.WPF.ViewModels
         public Plant SelectedItem
         {
             get { return _selectedItem; }
-            set { _selectedItem = value; 
+            set { _selectedItem = value;
                   NoticeMe("SelectedItem");
-                  //UpdateLocations(ListSuggestL, _context.Plants);
-                  //SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
-                  //SuggestL.Refresh();
-                  //SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter);
-                 }
+                  SuggestL.Filter += new FilterEventHandler(SuggestPlacementFilter);
+                  SuggestL.View.Refresh();
+            }
         }
 
 
@@ -57,16 +54,15 @@ namespace Planteskole.WPF.ViewModels
         #endregion
 
         #region Suggested Location Filter
-        public bool SuggestPlacementFilter(object de)
+        public void SuggestPlacementFilter(object sender, FilterEventArgs e)
         {
-            Location loc = de as Location;
-            bool isCompatible = false;
+            Location loc = e.Item as Location;
+            e.Accepted = false;
             if (_selectedItem != null) 
             {
                 //Compares - These two functions are nested, so we don't call the individual comparisons when _selectedItem is null. Might be changed later
-                isCompatible = IsCompatibleWithAllProperties(_selectedItem, loc);
+                e.Accepted = IsCompatibleWithAllProperties(_selectedItem, loc);
             }
-            return isCompatible;
         }
 
         public bool IsCompatibleWithAllProperties(Plant plt, Location loc) 
@@ -89,7 +85,7 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            loc.UpdateAvailableSquareFeet(_context.Plants);
+            loc.UpdateInfo(_context.Plants);
             if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
             {
                 spaceCompatible = true;
