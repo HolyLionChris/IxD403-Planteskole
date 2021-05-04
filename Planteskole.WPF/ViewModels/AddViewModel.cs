@@ -15,13 +15,19 @@ namespace Planteskole.WPF.ViewModels
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public CollectionViewSource SuggestL { get; private set; }
+        public ICollectionView TemplateName { get; set; }
         private readonly PlantContext _context = new PlantContext();
 
         public AddViewModel()
         {
             _context.Locations.Load();
+
             SuggestL = new CollectionViewSource();
             SuggestL.Source = _context.Locations.Local.ToObservableCollection();
+
+            _context.Templates.Load();
+            IList<Template> TemplateNameSuggest = _context.Templates.Local.ToObservableCollection();
+            TemplateName = CollectionViewSource.GetDefaultView(TemplateNameSuggest);
         }
 
         #region Selected Items
@@ -170,6 +176,5 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

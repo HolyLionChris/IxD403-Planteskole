@@ -4,17 +4,19 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Planteskole.Domain.Models;
+using System.ComponentModel;
 
 namespace Planteskole.WPF.Views
 {
     /// <summary>
     /// Interaction logic for AddView.xaml
     /// </summary>
-    public partial class AddView : UserControl
+    public partial class AddView : UserControl 
     {
         private readonly PlantContext _context = new PlantContext();
 
         private CollectionViewSource PlantViewSource, LocationViewSource, AreaViewSource;
+
 
         public AddView()
         {
@@ -58,8 +60,20 @@ namespace Planteskole.WPF.Views
         }
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
-            _context.SaveChanges();
+            if (StackPanelInfoPlant.IsVisible == true)
+            {
+                _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoLocation.IsVisible == true)
+            {
+                _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoArea.IsVisible == true)
+            {
+                _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+            }
+
+            //_context.SaveChanges();
             //PlantDataGrid.Items.Refresh();
 
         }
@@ -100,6 +114,21 @@ namespace Planteskole.WPF.Views
             PlantDataGrid.Items.Refresh();
             LocationDataGrid.Items.Refresh();
             AreaDataGrid.Items.Refresh();
+        }
+        private void DataGridCell_Selected(object sender, RoutedEventArgs e)
+        {
+            // Lookup for the source to be DataGridCell
+            if (e.OriginalSource.GetType() == typeof(DataGridCell))
+            {
+                // Starts the Edit on the row;
+                DataGrid grd = (DataGrid)sender;
+                grd.BeginEdit(e);
+            }
+        }
+
+        private void OnTargetUpdated(object sender, DataTransferEventArgs args)
+        {
+            _context.SaveChanges();
         }
     }
 }

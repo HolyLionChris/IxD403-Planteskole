@@ -4,12 +4,109 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Planteskole.WPF.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:Planteskole.Domain.Models;assembly=Planteskole.Domain"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <UserControl.Resources>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoPlant">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoLocation">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="StackPanelInfoArea">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <CollectionViewSource x:Key="PlantViewSource"/>
         <CollectionViewSource x:Key="LocationViewSource"/>
         <CollectionViewSource x:Key="AreaViewSource"/>
+        <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+FootType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumWateringNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+WateringNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumTemperatureNeeds" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Plant+TemperatureNeeds"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="EnumWateringMethod" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Location+WateringMethod"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="EnumTemperatures" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Location+Temperatures"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="2" BorderBrush="{StaticResource BrushPrimary1}" BorderThickness="1" Background="{StaticResource BrushPrimary1}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Normal">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -18,7 +115,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="360"></ColumnDefinition>
             <ColumnDefinition Width="100*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -28,13 +125,32 @@
             <Button Margin="2,0" x:Name="TogglingButtonArea" Content="Add Area" Click="TogglingButtonClickedArea" />
         </UniformGrid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" Visibility="Visible">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
-            <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay}"/>
+            <ComboBox ItemsSource="{Binding TemplateName}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.Name, Mode=TwoWay}" SelectedValuePath="Name" IsEditable="true"/>
 
             <TextBlock Margin="0,5" Text="Amount:"/>
-            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
 
+            <UniformGrid Rows="1" Margin="0,5">
+                <StackPanel >
+                    <TextBlock Text="Sellable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Sellable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel >
+                    <TextBlock Text="Needs Light" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsLight, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Vulnerable" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Vulnerable, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Tree Support" HorizontalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.NeedsTreeSupport, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
+            
             <TextBlock Margin="0,5" Text="Weight:"/>
             <TextBox Text="{Binding SelectedItem.Weight, Mode=TwoWay}"/>
 
@@ -50,7 +166,9 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="False" Margin="0,5">
+
+            <TextBlock Margin="0,5" Text="Suggested Location:"/>
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
@@ -67,9 +185,11 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource PlantViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
-                      Visibility="Visible">
+                      Visibility="Visible"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/> <!--Remove later-->
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
@@ -81,10 +201,10 @@
                     <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
-                    
-                    <DataGridTextColumn Binding="{Binding FootEnum}" Header="Foot Type" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WNeeds}" Header="Watering Needs" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding PTemperature}" Header="Temperature Needs" Width="auto"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -94,7 +214,8 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource AreaViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemArea}"
-                      Visibility="Collapsed">
+                      Visibility="Collapsed"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Name" Width="auto"/>
@@ -104,9 +225,9 @@
 
         <StackPanel Grid.Row="1" Name="StackPanelInfoArea" Visibility="Collapsed">
             <TextBlock Margin="0,0,0,5" Text="Name of the Area:"/>
-            <TextBox Text="{Binding SelectedItemArea.AreaName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemArea.AreaName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="ID:"/>
-            <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
         </StackPanel>
 
         <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
@@ -114,25 +235,28 @@
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding Source={StaticResource LocationViewSource}}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemLocation}"
-                      Visibility="Collapsed">
+                      Visibility="Collapsed"
+                      DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Name of Location" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WMethod}" Header="Watering Method" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding LTemperatures}" Header="Temperature" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringMethod}}" SelectedItemBinding="{Binding WMethod}" Header="Watering Method"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatures}}" SelectedItemBinding="{Binding LTemperatures}" Header="Temperature"/>
+
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed">
+        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed" >
             <TextBlock Margin="0,0,0,5" Text="Name of the Location:"/>
-            <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay}"/>
+            <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="ID:"/>
             <TextBox Text="{Binding SelectedItemLocation.Id, Mode=TwoWay}"/>
             <TextBlock Margin="0,5" Text="Bottom Water:"/>
@@ -154,6 +278,8 @@
             <Button Margin="2,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click" Grid.Row="1"/>
             <Button Margin="2,0" Content="Save" Click="Button_Click" Grid.Row="2"/>
         </UniformGrid>
+
+        
 
     </Grid>
 </UserControl>
