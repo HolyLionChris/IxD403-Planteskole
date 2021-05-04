@@ -43,11 +43,16 @@ namespace Planteskole.WPF.ViewModels
             groupByAreaCommand = new GroupByAreaCommand(this); 
             removeGroupCommand = new RemoveGroupCommand(this);
             saveButtonCommand = new SaveButtonCommand(this);
-            deleteButtonCommand = new DeleteButtonCommand(this); 
+            deleteButtonCommand = new DeleteButtonCommand(this);
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
 
+        }
+
+        public void AutoSave ()
+        {
+            _context.SaveChanges();
         }
 
         public void RemoveGroup()
@@ -112,28 +117,8 @@ namespace Planteskole.WPF.ViewModels
             private set;
         }
 
-    }
-    public class GroupsToTotalConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is ReadOnlyObservableCollection<object>)
-            {
-                var items = (ReadOnlyObservableCollection<object>)value;
-                Decimal total = 0;
-                foreach (Plant element in items)
-                {
-                    total += element.Amount;
-                }
-                return total.ToString();
-            }
-           
-            return "";
-        }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return value;
-        }
     }
+    
+
 }
