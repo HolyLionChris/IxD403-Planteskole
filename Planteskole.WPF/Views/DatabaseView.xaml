@@ -10,7 +10,7 @@
         <CollectionViewSource x:Key="TemplateViewSource"/>
     </UserControl.Resources>
 
-    <Grid Loaded="Grid_Loaded">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
@@ -42,12 +42,12 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" x:Name="TemplateTextBox" Foreground="Gray" Padding="6" Margin="4" Width="200"/>
-            <Button Grid.Row="1" Command="{Binding searchButtonCommand}" Content="Search"/>
+            <TextBox Grid.Row="0" Text="{Binding TemplateTextBox}" Padding="6" Margin="4" Width="200"/>
+            <Button Grid.Row="1" Command="{Binding searchButtonDatabaseCommand}" Content="Search"/>
             <Grid Grid.Row="2" Margin="20 4 0 4">
                 <TextBlock Text="This is were we see all the changes"/>
             </Grid>
-            <Button Grid.Row="3" Click="Button_Click" Content="Save" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Padding="10" Margin="4 20" Width="100"/>
+            <Button Grid.Row="3" Command="{Binding saveButtonDatabaseCommand}" Padding="20,10" Content="Save" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </UserControl>

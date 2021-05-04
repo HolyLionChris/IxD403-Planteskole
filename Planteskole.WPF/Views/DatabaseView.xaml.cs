@@ -25,27 +25,9 @@ namespace Planteskole.WPF.Views
     /// </summary>
     public partial class DatabaseView : UserControl
     {
-        private readonly PlantContext _context = new PlantContext();
-
-        private CollectionViewSource TemplateViewSource;
-
         public DatabaseView()
         {
             InitializeComponent();
-
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            _context.Templates.Load();
-
-            TemplateViewSource.Source = _context.Templates.Local.ToObservableCollection();
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _context.SaveChanges();
-
-            TemplateDataGrid.Items.Refresh();
         }
     }
 }

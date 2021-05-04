@@ -18,36 +18,55 @@ namespace Planteskole.WPF.ViewModels
         public ICollectionView TemplateDataGridView { get; set; }
         private readonly PlantContext _context = new PlantContext();
 
+        private string templateTextBox;
+        public string TemplateTextBox
+        {
+            get { return this.templateTextBox; }
+            set
+            {
+                if (!string.Equals(this.templateTextBox, value))
+                {
+                    this.templateTextBox = value;
+                }
+            }
+        } //Takes the Textbox "TemplateTextBox" and makes it accessble in the viewmodel
+
         public DatabaseViewModel()
         {
             _context.Templates.Load();
             IList<Template> TemplateList = _context.Templates.Local.ToObservableCollection();
             TemplateDataGridView = CollectionViewSource.GetDefaultView(TemplateList);
-            TemplateDataGridView.Filter = NameFilter;
 
-            searchButtonCommand = new SearchButtonCommand(this);
-
+            searchButtonDatabaseCommand = new SearchButtonDatabaseCommand(this);
+            saveButtonDatabaseCommand = new SaveButtonDatabaseCommand(this);
         }
 
         private bool NameFilter(object item)
         {
-            if (String.IsNullOrEmpty(TemplateTextBox.Text))
+            if (String.IsNullOrEmpty(TemplateTextBox))
                 return true;
             else
-                return ((item as Template).Name.IndexOf(TemplateTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as Template).Name.IndexOf(TemplateTextBox, StringComparison.OrdinalIgnoreCase) >= 0);
         }
-        private void TemplateTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+
+        public void SearchDatabaseButton()
         {
-            CollectionViewSource.GetDefaultView(TemplateDataGridView).Refresh();
+            TemplateDataGridView.Filter = NameFilter;
         }
 
-
-        public void SearchButton()
+        public void SaveDatabaseButton()
         {
-            NameFilter
+            _context.SaveChanges();
+            TemplateDataGridView.Refresh();
         }
 
-        public ICommand searchButtonCommand
+        public ICommand searchButtonDatabaseCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand saveButtonDatabaseCommand
         {
             get;
             private set;

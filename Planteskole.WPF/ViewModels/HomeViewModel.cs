@@ -19,8 +19,21 @@ namespace Planteskole.WPF.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         public ICollectionView HomeView { get; set; }
-
+        public ICollectionView SearchView { get; set; }
         private readonly PlantContext _context = new PlantContext();
+
+        private string homeSearchTextBox;
+        public string HomeSearchTextBox
+        {
+            get { return this.homeSearchTextBox; }
+            set
+            {
+                if (!string.Equals(this.homeSearchTextBox, value))
+                {
+                    this.homeSearchTextBox = value;
+                }
+            }
+        }
 
         public HomeViewModel()
         {
@@ -37,6 +50,8 @@ namespace Planteskole.WPF.ViewModels
             allS.AddRange((from x in areas select (Object)x).ToList());
 
             HomeView = CollectionViewSource.GetDefaultView(allS);
+            SearchView = CollectionViewSource.GetDefaultView(plants);
+
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
@@ -44,10 +59,18 @@ namespace Planteskole.WPF.ViewModels
             removeGroupCommand = new RemoveGroupCommand(this);
             saveButtonCommand = new SaveButtonCommand(this);
             deleteButtonCommand = new DeleteButtonCommand(this);
+            searchButtonHomeCommand = new SearchButtonHomeCommand(this);
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
+        }
 
+        private bool SearchFilter(object item)
+        {
+            if (String.IsNullOrEmpty(HomeSearchTextBox))
+                return true;
+            else
+                return ((item as Location).LocationName.IndexOf(HomeSearchTextBox, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         public void AutoSave ()
@@ -84,7 +107,12 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Remove((Plant)HomeView.CurrentItem);
             _context.SaveChanges();
         }
-       
+
+        public void SearchHomeButton()
+        {
+            HomeView.Filter = SearchFilter;
+        }
+
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByLocationCommand
@@ -117,8 +145,10 @@ namespace Planteskole.WPF.ViewModels
             private set;
         }
 
-
+        public ICommand searchButtonHomeCommand
+        {
+            get;
+            private set;
+        }
     }
-    
-
 }

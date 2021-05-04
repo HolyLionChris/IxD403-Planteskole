@@ -81,7 +81,6 @@
         <Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="Height" Value="25" />
             <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
-            
         </Style>
     </UserControl.Resources>
     
@@ -91,11 +90,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-
         <ScrollViewer>
-
             <StackPanel x:Name="print" Grid.Row="0" Margin="10">
-                <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid TargetUpdated="OnTargetUpdated" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
@@ -155,17 +152,20 @@
                 </DataGrid>
             </StackPanel>
         </ScrollViewer>
-        
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10" HorizontalAlignment="Center" >
-            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5" />
-            <Button Command="{Binding groupByLocationCommand}" Content="Location" Margin="2" Padding="5"/>
-            <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
-            <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
-            <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/>
-            <Button Content="Print" HorizontalAlignment="Right" Margin="2" Click="Button_Click_Print" Padding="5"/>
-        </StackPanel>
-        
 
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" >
+                <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5" />
+                <Button Command="{Binding groupByLocationCommand}" Content="Location" Margin="2" Padding="5"/>
+                <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
+                <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
+                <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/>
+                <Button Content="Print" HorizontalAlignment="Right" Margin="2" Click="Button_Click_Print" Padding="5"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox Text="{Binding HomeSearchTextBox}" Padding="6" Margin="4" Width="200"/>
+                <Button Command="{Binding searchHomeButtonCommand}" Content="Search"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
