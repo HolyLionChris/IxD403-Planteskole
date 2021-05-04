@@ -38,7 +38,48 @@
                 <x:Type TypeName="enums:Location+Temperatures"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="2" BorderBrush="{StaticResource BrushPrimary1}" BorderThickness="1" Background="{StaticResource BrushPrimary1}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Normal">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
