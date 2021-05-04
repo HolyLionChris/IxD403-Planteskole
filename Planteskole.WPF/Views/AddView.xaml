@@ -57,6 +57,7 @@
                     <DataGridTextColumn Header="Watering Method" Binding="{Binding WMethod, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="AvailableSpace" Binding="{Binding AvailableSquareFeet, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -120,6 +121,7 @@
                     <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding WMethod}" Header="Watering Method" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LTemperatures}" Header="Temperature" Width="auto"/>

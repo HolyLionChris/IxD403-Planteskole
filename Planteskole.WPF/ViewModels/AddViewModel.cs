@@ -23,27 +23,34 @@ namespace Planteskole.WPF.ViewModels
             SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
         }
 
+        #region Selected Items
         private Plant _selectedItem;
         public Plant SelectedItem
         {
             get { return _selectedItem; }
             set { _selectedItem = value; 
-                  NoticeMe("SelectedItem"); 
+                  NoticeMe("SelectedItem");
                   SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
         }
+
+
         private Location _selectedItemLocation;
         public Location SelectedItemLocation
         {
             get { return _selectedItemLocation; }
             set { _selectedItemLocation = value; NoticeMe("SelectedItemLocation"); }
         }
+
+
         private Area _selectedItemArea;
         public Area SelectedItemArea
         {
             get { return _selectedItemArea; }
             set { _selectedItemArea = value; NoticeMe("SelectedItemArea"); }
         }
+        #endregion
 
+        #region Suggested Location Filter
         public bool SuggestPlacementFilter(object de)
         {
             Location loc = de as Location;
@@ -76,9 +83,10 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            // vv Temporary vv
-            spaceCompatible = true;
-            // ^^ Temporary ^^
+            if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
+            {
+                spaceCompatible = true;
+            }
 
             return spaceCompatible;
         }
@@ -138,8 +146,7 @@ namespace Planteskole.WPF.ViewModels
 
             return treeSupCompatible;
         }
-
-
+        #endregion
 
         protected void NoticeMe(string property)
         {

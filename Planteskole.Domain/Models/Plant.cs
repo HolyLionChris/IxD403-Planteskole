@@ -33,11 +33,16 @@ namespace Planteskole.Domain.Models
 
         public string noGroup
         {
-            get
-            {
-                return "Total";
-            }
+            get{ return "Total"; }
         }
+
+        public double TotalSquareFeet
+        {
+            get { return (this.DepthPerPlant * this.WidthPerPlant) * this.Amount; }
+            set { }
+        }
+
+
     }
 }
 

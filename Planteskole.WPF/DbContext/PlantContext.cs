@@ -12,7 +12,16 @@ namespace Planteskole.WPF.Temporary
     {
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Template> Templates { get; set; }
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<Location> Locations 
+        {
+            get 
+            {
+                DbSet<Location> locs = Set<Location>();
+                PopulateLocations(locs);
+                return locs; 
+            }
+            set { } 
+        }
         public DbSet<Area> Areas { get; set; }
 
         protected override void OnConfiguring(
@@ -23,5 +32,16 @@ namespace Planteskole.WPF.Temporary
             //optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
+
+        #region PopulateLocation
+        public void PopulateLocations(DbSet<Location> set) 
+        {
+            foreach (Location loc in set) 
+            {
+                loc.OccupyingPlants = Plants.Where(b => b.LocationName == loc.LocationName).ToList();
+            }
+        }
+        #endregion
+
     }
 }
