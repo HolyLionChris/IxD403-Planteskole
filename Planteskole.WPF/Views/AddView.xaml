@@ -10,6 +10,7 @@
         <CollectionViewSource x:Key="PlantViewSource"/>
         <CollectionViewSource x:Key="LocationViewSource"/>
         <CollectionViewSource x:Key="AreaViewSource"/>
+        <CollectionViewSource x:Key="SuggestedLocationsViewSource" Source="{Binding SuggestL}"/>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -50,7 +51,7 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" Margin="0,5">
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding Source={StaticResource SuggestedLocationsViewSource}}" AutoGenerateColumns="False" Margin="0,5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>

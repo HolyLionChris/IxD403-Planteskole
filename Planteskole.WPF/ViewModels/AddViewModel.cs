@@ -8,20 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Collections.ObjectModel;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ICollectionView SuggestL { get; set; }
+        public ObservableCollection<Location> SuggestL { get; set; }
         private readonly PlantContext _context = new PlantContext();
 
         public AddViewModel()
         {
             _context.Locations.Load();
             UpdateLocations(_context.Locations, _context.Plants);
-            IList<Location> ListSuggestL = _context.Locations.Local.ToObservableCollection();
-            SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
+            _context.SaveChanges();
+            SuggestL = _context.Locations.Local.ToObservableCollection();
         }
 
         #region Selected Items
@@ -31,8 +32,11 @@ namespace Planteskole.WPF.ViewModels
             get { return _selectedItem; }
             set { _selectedItem = value; 
                   NoticeMe("SelectedItem");
-                  //UpdateLocations(SuggestL, _context.Plants);
-                  SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter); }
+                  //UpdateLocations(ListSuggestL, _context.Plants);
+                  //SuggestL = CollectionViewSource.GetDefaultView(ListSuggestL);
+                  //SuggestL.Refresh();
+                  //SuggestL.Filter += new Predicate<object>(SuggestPlacementFilter);
+                 }
         }
 
 
