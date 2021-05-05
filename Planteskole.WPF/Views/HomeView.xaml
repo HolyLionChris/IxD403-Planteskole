@@ -98,19 +98,28 @@
                         <!--Remove later-->
                         <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" />
                         <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}" />
+                        <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                        
                         <DataGridCheckBoxColumn Header="Sellable" Width="auto" Binding="{Binding Sellable}" />
                         <DataGridCheckBoxColumn Header="Needs Light" Width="auto" Binding="{Binding NeedsLight}" />
                         <DataGridCheckBoxColumn Header="Vulnerable" Width="auto" Binding="{Binding Vulnerable}" />
                         <DataGridCheckBoxColumn Header="Needs Tree Support" Width="auto" Binding="{Binding NeedsTreeSupport}" />
-                        <DataGridTextColumn Header="Weight Per Plant" Width="auto" Binding="{Binding WeightPerPlant}" />
-                        <DataGridTextColumn Header="Depth Per Plant" Width="auto" Binding="{Binding DepthPerPlant}" />
-                        <DataGridTextColumn Header="Width Per Plant" Width="auto" Binding="{Binding WidthPerPlant}" />
-                        <DataGridTextColumn Header="Location" Width="auto" Binding="{Binding LocationName}" />
-                        <DataGridTextColumn Header="Area" Width="auto" Binding="{Binding AreaName}" />
-
                         <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
                         <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
                         <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
+                        <!--<DataGridTextColumn Header="Weight Per Plant" Width="auto" Binding="{Binding WeightPerPlant}" />-->
+                        <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                        
+                        <DataGridTextColumn Header="Depth Per Plant" Width="auto" Binding="{Binding DepthPerPlant}" />
+                        <DataGridTextColumn Header="Width Per Plant" Width="auto" Binding="{Binding WidthPerPlant}" />
+                        <DataGridTextColumn Header="Total Square Feet" Width="auto" Binding="{Binding TotalSquareFeet}" />
+                        <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+
+                        <DataGridTextColumn Header="Area" Width="auto" Binding="{Binding AreaName}" />
+                        <DataGridTextColumn Header="Location" Width="auto" Binding="{Binding LocationName}" />
 
                     </DataGrid.Columns>
                     <DataGrid.GroupStyle>
