@@ -168,29 +168,6 @@ namespace Planteskole.WPF.Commands
         }
     }
 
-    public class SearchButtonHomeCommand : ICommand
-    {
-
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            this._viewModel.SearchHomeButton();
-        }
-
-        private HomeViewModel _viewModel;
-
-        public SearchButtonHomeCommand(HomeViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-    }
-
     public class SaveButtonDatabaseCommand : ICommand
     {
 
