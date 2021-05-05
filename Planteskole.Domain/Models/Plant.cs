@@ -16,7 +16,6 @@ namespace Planteskole.Domain.Models
         public enum TemperatureNeeds { NA, Cold, Moderate, Warmth }
 
         //[Key] also - Having empty lines here fucks up the data table creation in database
-        public string Name { get; set; }
         public int Amount { get; set; }
         public bool Sellable { get; set; } = true;
         public bool NeedsLight { get; set; }

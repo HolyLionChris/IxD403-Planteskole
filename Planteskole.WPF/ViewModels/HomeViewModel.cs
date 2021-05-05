@@ -11,8 +11,8 @@ using System.Windows.Input;
 using Planteskole.WPF.Commands;
 using Microsoft.EntityFrameworkCore;
 using Planteskole.WPF.Temporary;
-
-
+using System.Globalization;
+using System.Windows;
 
 namespace Planteskole.WPF.ViewModels
 {
@@ -117,6 +117,31 @@ namespace Planteskole.WPF.ViewModels
         {
             get;
             private set;
+        }
+    }
+    public class VisibilitySetter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (parameter.ToString() == "1")  //Parameter is set in the xaml file.
+            {
+                return SetVisibilityBasedOn(value);
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        private object SetVisibilityBasedOn(object value)
+        {
+            if (value is DomainObject obj && obj.Name == null) //Checks the value of the object
+            {
+                return Visibility.Collapsed;  //Hides the row. It Returns visibility based on the value of the row.
+            }
+            return null;
         }
     }
 }
