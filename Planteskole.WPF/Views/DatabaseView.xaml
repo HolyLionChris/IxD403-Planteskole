@@ -64,16 +64,15 @@
                       ItemsSource="{Binding TemplateDataGridView}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                    
                     <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Bottomwatering}" Header="Bottomwatering" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Normalwatering}" Header="Normalwatering" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Warm}" Header="Warm" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Cold}" Header="Cold" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Stackable}" Header="Stackable" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding BareRoot}" Header="BareRoot" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Lump}" Header="Lump" Width="auto"/>
+                    <DataGridTextColumn Header="Watering" Binding="{Binding WMethod, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
