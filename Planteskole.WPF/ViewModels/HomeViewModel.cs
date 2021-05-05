@@ -46,11 +46,27 @@ namespace Planteskole.WPF.ViewModels
             saveButtonCommand = new SaveButtonCommand(this);
             deleteButtonCommand = new DeleteButtonCommand(this);
 
+            HomeView.Filter += new FilterEventHandler(OnlyNamedFilter);
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
         }
 
+        #region OnlyNamedFilter
 
+        public void OnlyNamedFilter(object sender, FilterEventArgs e)
+        {
+            DomainObject dom = e.Item as DomainObject;
+            e.Accepted = false;
+            if (dom.Name != null)
+            {
+                //Compares - If name HAS content (/is not null) it will be shown
+                e.Accepted = true;
+            }
+        }
+
+        #endregion
+
+        #region Buttons
         public void AutoSave ()
         {
             _context.SaveChanges();
@@ -85,8 +101,9 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Remove((Plant)HomeView.CurrentItem);
             _context.SaveChanges();
         }
+        #endregion
 
-
+        #region Commands
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByLocationCommand
@@ -118,5 +135,6 @@ namespace Planteskole.WPF.ViewModels
             get;
             private set;
         }
+        #endregion
     }
 }
