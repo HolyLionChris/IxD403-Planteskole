@@ -145,5 +145,50 @@ namespace Planteskole.WPF.Commands
         }
     }
 
+    public class SearchButtonDatabaseCommand : ICommand
+    {
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            this._viewModel.SearchDatabaseButton();
+        }
+
+        private DatabaseViewModel _viewModel;
+
+        public SearchButtonDatabaseCommand(DatabaseViewModel viewModel)
+        {
+            this._viewModel = viewModel;
+        }
+    }
+
+    public class SaveButtonDatabaseCommand : ICommand
+    {
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            this._viewModel.SaveDatabaseButton();
+        }
+
+        private DatabaseViewModel _viewModel;
+
+        public SaveButtonDatabaseCommand(DatabaseViewModel viewModel)
+        {
+            this._viewModel = viewModel;
+        }
+    }
 
 }

@@ -19,8 +19,8 @@ namespace Planteskole.WPF.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         public ICollectionView HomeView { get; set; }
-
         private readonly PlantContext _context = new PlantContext();
+
 
         public HomeViewModel()
         {
@@ -37,6 +37,7 @@ namespace Planteskole.WPF.ViewModels
             allS.AddRange((from x in areas select (Object)x).ToList());
 
             HomeView = CollectionViewSource.GetDefaultView(allS);
+
             //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
@@ -47,8 +48,8 @@ namespace Planteskole.WPF.ViewModels
 
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("AreaName"));
             HomeView.GroupDescriptions.Add(new PropertyGroupDescription("LocationName"));
-
         }
+
 
         public void AutoSave ()
         {
@@ -84,7 +85,8 @@ namespace Planteskole.WPF.ViewModels
             _context.Plants.Remove((Plant)HomeView.CurrentItem);
             _context.SaveChanges();
         }
-       
+
+
         //We can just add more to get more different groupings, such as date added which can be automated
 
         public ICommand groupByLocationCommand
@@ -116,9 +118,5 @@ namespace Planteskole.WPF.ViewModels
             get;
             private set;
         }
-
-
     }
-    
-
 }

@@ -81,7 +81,6 @@
         <Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="Height" Value="25" />
             <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
-            
         </Style>
     </UserControl.Resources>
     
@@ -91,11 +90,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-
         <ScrollViewer>
-
             <StackPanel x:Name="print" Grid.Row="0" Margin="10">
-                <DataGrid TargetUpdated="OnTargetUpdated" CanUserAddRows="False" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid TargetUpdated="OnTargetUpdated" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
