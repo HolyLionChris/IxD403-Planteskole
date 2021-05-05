@@ -190,11 +190,11 @@
 
 
             <TextBlock Margin="0,5" Text="Suggested Location:"/>
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="True">
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="Watering Method" Binding="{Binding WMethod, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Watering" Binding="{Binding WMethod, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
                     <DataGridTextColumn Header="AvailableSpace" Binding="{Binding AvailableSquareFeet, Mode=OneWay}"/>
@@ -210,23 +210,32 @@
                       Visibility="Visible"
                       DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                    
                     <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding NeedsLight}" Header="Needs Light" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding Vulnerable}" Header="Vulnerable" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport}" Header="Needs Tree Support" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
-
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
+                    <!--<DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>-->
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                    
+                    <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding TotalSquareFeet}" Header="Total Square Feet" Width="auto"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+
+                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="50"/>
+                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -239,7 +248,7 @@
                       Visibility="Collapsed"
                       DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Name" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -261,18 +270,25 @@
                       Visibility="Collapsed"
                       DataGridCell.Selected="DataGridCell_Selected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Name of Location" Width="auto"/>
-                    <DataGridCheckBoxColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
-                    <DataGridCheckBoxColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
+                    <DataGridCheckBoxColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringMethod}}" SelectedItemBinding="{Binding WMethod}" Header="Watering Method"/>
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatures}}" SelectedItemBinding="{Binding LTemperatures}" Header="Temperature"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                    
+                    <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="75"/>
+                    <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="75"/>
+                    <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
-                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="75"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

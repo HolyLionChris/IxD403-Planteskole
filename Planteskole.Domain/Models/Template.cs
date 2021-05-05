@@ -9,14 +9,14 @@ namespace Planteskole.Domain.Models
 {
     public class Template : DomainObject
     {
+        public enum FootType { NA, Pot, BareRoot, Lump }
+        public enum WateringNeeds { NA, BottomWatering, AboveWatering }
+        public enum TemperatureNeeds { NA, Cold, Moderate, Warmth }
+
         public string Name { get; set; }
         public bool Light { get; set; }
-        public bool Bottomwatering { get; set; }
-        public bool NormalWatering { get; set; }
-        public bool Warm { get; set; }
-        public bool Cold { get; set; }
-        public bool Stackable { get; set; }
-        public bool BareRoot { get; set;}
-        public bool Lump { get; set; }
+        public FootType FootEnum { get; set; } = FootType.NA;
+        public WateringNeeds WNeeds { get; set; } = WateringNeeds.NA;
+        public TemperatureNeeds PTemperature { get; set; } = TemperatureNeeds.NA;
     }
 }
