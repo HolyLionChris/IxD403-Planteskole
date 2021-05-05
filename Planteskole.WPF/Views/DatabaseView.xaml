@@ -5,17 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Planteskole.WPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontFamily="Roboto">
+             
     <UserControl.Resources>
         <CollectionViewSource x:Key="TemplateViewSource"/>
 
         <Style TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Width" Value="90"/>
-            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -43,26 +47,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+        <Style TargetType="DataGrid">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="Black" />
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <!-- Highlight a grid row as the mouse passes over -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BrushPrimary2}" />
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="12"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Padding" Value="10,4" />
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="360"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer Margin="4">
             <DataGrid Grid.Column="0" x:Name="TemplateDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding TemplateDataGridView}" 
-                      RowDetailsVisibilityMode="VisibleWhenSelected">
+                      RowDetailsVisibilityMode="VisibleWhenSelected"
+                      RenderOptions.EdgeMode="Aliased">
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
@@ -84,12 +106,12 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding TemplateTextBox}" Padding="6" Margin="4" Width="200"/>
+            <TextBox Grid.Row="0" Text="{Binding TemplateTextBox}" Margin="4" Width="auto" Padding="6"/>
             <Button Grid.Row="1" Command="{Binding searchButtonDatabaseCommand}" Content="Search"/>
             <Grid Grid.Row="2" Margin="20 4 0 4">
                 <TextBlock Text="This is were we see all the changes"/>
             </Grid>
-            <Button Grid.Row="3" Command="{Binding saveButtonDatabaseCommand}" Padding="20,10" Content="Save" HorizontalAlignment="Center"/>
+            <Button Grid.Row="3" Command="{Binding saveButtonDatabaseCommand}" Margin="5" Content="Save" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </UserControl>
