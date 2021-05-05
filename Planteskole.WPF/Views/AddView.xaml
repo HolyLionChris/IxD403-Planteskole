@@ -166,14 +166,16 @@
             <TextBlock Margin="0,5" Text="Area:"/>
             <TextBox Text="{Binding SelectedItem.AreaName, Mode=TwoWay}"/>
 
+
             <TextBlock Margin="0,5" Text="Suggested Location:"/>
-            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL}" AutoGenerateColumns="False" >
+            <DataGrid x:Name="SuggestLocationGrid" ItemsSource="{Binding SuggestL.View}" AutoGenerateColumns="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding LocationName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Light" Binding="{Binding Light, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Watering Method" Binding="{Binding WMethod, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}" Width="*"/>
+                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="AvailableSpace" Binding="{Binding AvailableSquareFeet, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -241,6 +243,7 @@
                     <DataGridCheckBoxColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
                     <DataGridCheckBoxColumn Binding="{Binding TreeSupport}" Header="Has tree support" Width="auto"/>
 
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringMethod}}" SelectedItemBinding="{Binding WMethod}" Header="Watering Method"/>

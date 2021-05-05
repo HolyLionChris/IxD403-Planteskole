@@ -153,13 +153,15 @@
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5" />
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Grid.Row="1" Margin="10">
+            <Button Command="{Binding removeGroupCommand}" Content="Remove Group" Margin="2" Padding="5"/>
             <Button Command="{Binding groupByLocationCommand}" Content="Location" Margin="2" Padding="5"/>
             <Button Command="{Binding groupByAreaCommand}" Content="Area" Margin="2" Padding="5"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Grid.Row="1" Margin="10">
             <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2" Padding="5"/>
             <Button Command="{Binding deleteButtonCommand}" Content="Delete" Margin="2" Padding="5"/>
-            <Button Content="Print" HorizontalAlignment="Right" Margin="2" Click="Button_Click_Print" Padding="5"/>
+            <Button Content="Print" Margin="2" Click="Button_Click_Print" Padding="5" />
         </StackPanel>
     </Grid>
 </UserControl>
