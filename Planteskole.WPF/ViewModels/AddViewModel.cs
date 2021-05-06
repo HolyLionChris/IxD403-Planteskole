@@ -37,6 +37,7 @@ namespace Planteskole.WPF.ViewModels
             get { return _selectedItem; }
             set { _selectedItem = value;
                   NoticeMe("SelectedItem");
+                  UpdateLocations(_context.Locations, _context.Plants);
                   SuggestL.Filter += new FilterEventHandler(SuggestPlacementFilter);
                   SuggestL.View.Refresh();
             }
@@ -91,7 +92,6 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            loc.UpdateInfo(_context.Plants);
             if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
             {
                 spaceCompatible = true;
