@@ -234,7 +234,7 @@
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
-                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="50"/>
+                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
                 </DataGrid.Columns>
             </DataGrid>
