@@ -88,13 +88,6 @@
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="auto"/>
-                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
-                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
-                    
-                    <DataGridTextColumn Binding="{Binding Light}" Header="Light" Width="auto"/>
-                    <DataGridTextColumn Header="Watering" Binding="{Binding WMethod, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

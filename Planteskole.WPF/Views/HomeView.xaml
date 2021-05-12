@@ -11,6 +11,7 @@
              FontFamily="Roboto">
 
     <UserControl.Resources>
+        <local:VisibilitySetter x:Key="VisibilitySetter"/>
         <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:Plant+FootType"/>
@@ -97,7 +98,12 @@
 
         <ScrollViewer>
             <StackPanel x:Name="print" Grid.Row="0" Margin="10">
-                <DataGrid TargetUpdated="OnTargetUpdated" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid CanUserAddRows="False" TargetUpdated="OnTargetUpdated" ItemsSource="{Binding HomeView}" AutoGenerateColumns="False" DataGridCell.Selected="DataGridCell_Selected" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Visibility" Value="{Binding Path=., Converter={StaticResource VisibilitySetter}, ConverterParameter=1}" />
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
