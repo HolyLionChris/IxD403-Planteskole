@@ -29,5 +29,13 @@ namespace Planteskole.WPF.Views
         {
             InitializeComponent();
         }
+
+        public ViewModels.DatabaseViewModel DatabaseViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

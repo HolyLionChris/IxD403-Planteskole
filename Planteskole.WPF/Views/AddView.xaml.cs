@@ -27,6 +27,15 @@ namespace Planteskole.WPF.Views
             AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
 
         }
+
+        public ViewModels.AddViewModel AddViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             // this is for demo purposes only, to make it easier

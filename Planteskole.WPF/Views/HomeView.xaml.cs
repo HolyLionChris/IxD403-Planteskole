@@ -29,6 +29,15 @@ namespace Planteskole.WPF.Views
             DataContext = new ViewModels.HomeViewModel();
 
         }
+
+        public HomeViewModel HomeViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void Button_Click_Print(object sender, RoutedEventArgs e)
         {
             try

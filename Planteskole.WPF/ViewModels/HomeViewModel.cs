@@ -24,6 +24,7 @@ namespace Planteskole.WPF.ViewModels
 
         public HomeViewModel()
         {
+            //_context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();

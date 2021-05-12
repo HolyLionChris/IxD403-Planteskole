@@ -88,7 +88,7 @@
             <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
