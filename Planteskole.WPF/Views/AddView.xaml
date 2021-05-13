@@ -149,7 +149,7 @@
             <TextBlock Text="Plants" FontSize="24" FontWeight="Black" FontFamily="Roboto" Margin="0,5,0,5" Foreground="{StaticResource BrushPrimary2}"/>
 
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
-            <ComboBox ItemsSource="{Binding TemplateName}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.Name, Mode=TwoWay}" SelectedValuePath="Name" IsEditable="true"/>
+            <ComboBox ItemsSource="{Binding TemplateName.View}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.Name, Mode=TwoWay}" SelectedValuePath="Name" IsEditable="true"/>
 
             <TextBlock Margin="0,5" Text="Amount:"/>
             <TextBox Text="{Binding SelectedItem.Amount, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
@@ -202,10 +202,10 @@
             </DataGrid>
         </StackPanel>
 
-        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
             <DataGrid x:Name="PlantDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
-                      ItemsSource="{Binding Source={StaticResource PlantViewSource}}" 
+                      ItemsSource="{Binding PlantViewSource.View}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
                       Visibility="Visible"
                       DataGridCell.Selected="DataGridCell_Selected">
@@ -240,10 +240,10 @@
             </DataGrid>
         </Grid>
         
-        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
             <DataGrid x:Name="AreaDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
-                      ItemsSource="{Binding Source={StaticResource AreaViewSource}}" 
+                      ItemsSource="{Binding AreaViewSource.View}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemArea}"
                       Visibility="Collapsed"
                       DataGridCell.Selected="DataGridCell_Selected">
@@ -262,10 +262,10 @@
             <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
         </StackPanel>
 
-        <Grid Loaded="Grid_Loaded" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
             <DataGrid x:Name="LocationDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
-                      ItemsSource="{Binding Source={StaticResource LocationViewSource}}" 
+                      ItemsSource="{Binding LocationViewSource.View}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItemLocation}"
                       Visibility="Collapsed"
                       DataGridCell.Selected="DataGridCell_Selected">

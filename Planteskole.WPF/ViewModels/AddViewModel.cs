@@ -9,25 +9,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
+using Planteskole.WPF.Commands;
+using System.Windows.Input;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public CollectionViewSource SuggestL { get; private set; }
-        public ICollectionView TemplateName { get; set; }
         private readonly PlantContext _context = new PlantContext();
+        public CollectionViewSource PlantViewSource { get; private set; }
+        public CollectionViewSource LocationViewSource { get; private set; }
+        public CollectionViewSource AreaViewSource { get; private set; }
+        public CollectionViewSource SuggestL { get; private set; }
+        public CollectionViewSource TemplateName { get; set; }
+
+        public ICommand saveContextCommand;
 
         public AddViewModel()
         {
+            _context.Plants.Load();
             _context.Locations.Load();
-
-            SuggestL = new CollectionViewSource();
-            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
-
+            _context.Areas.Load();
             _context.Templates.Load();
-            IList<Template> TemplateNameSuggest = _context.Templates.Local.ToObservableCollection();
-            TemplateName = CollectionViewSource.GetDefaultView(TemplateNameSuggest);
+
+            PlantViewSource = new CollectionViewSource();
+            LocationViewSource = new CollectionViewSource();
+            AreaViewSource = new CollectionViewSource();
+            SuggestL = new CollectionViewSource();
+            TemplateName = new CollectionViewSource();
+
+            PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
+            LocationViewSource.Source = _context.Locations.Local.ToObservableCollection();
+            AreaViewSource.Source = _context.Areas.Local.ToObservableCollection();
+            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
+            TemplateName.Source = _context.Templates.Local.ToObservableCollection();
+
+            saveContextCommand = new SaveContextCommand(this);
         }
 
         #region Selected Items
@@ -167,6 +184,8 @@ namespace Planteskole.WPF.ViewModels
             }
         }
         #endregion
+
+
 
         protected void NoticeMe(string property)
         {
