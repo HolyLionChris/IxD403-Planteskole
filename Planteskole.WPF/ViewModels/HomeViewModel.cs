@@ -24,7 +24,6 @@ namespace Planteskole.WPF.ViewModels
 
         public HomeViewModel()
         {
-            //_context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
             _context.Plants.Load();
             _context.Locations.Load();
@@ -38,8 +37,6 @@ namespace Planteskole.WPF.ViewModels
             allS.AddRange((from x in areas select (Object)x).ToList());
 
             HomeView = CollectionViewSource.GetDefaultView(allS);
-
-            //OrdersView.GroupDescriptions.Add(new PropertyGroupDescription("noGroup"));
 
             groupByLocationCommand = new GroupByLocationCommand(this); //OrderGroupCommand.cs
             groupByAreaCommand = new GroupByAreaCommand(this); 

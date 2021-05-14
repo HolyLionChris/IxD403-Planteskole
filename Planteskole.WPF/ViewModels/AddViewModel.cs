@@ -9,25 +9,53 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
+using Planteskole.WPF.Commands;
+using System.Windows.Input;
+using System.Globalization;
+using System.Windows;
+using static Planteskole.WPF.Commands.AddViewCommands;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public CollectionViewSource SuggestL { get; private set; }
-        public ICollectionView TemplateName { get; set; }
         private readonly PlantContext _context = new PlantContext();
+       
+        public CollectionViewSource PlantViewSource { get; private set; }
+        public CollectionViewSource LocationViewSource { get; private set; }
+        public CollectionViewSource AreaViewSource { get; private set; }
+        public CollectionViewSource SuggestL { get; private set; }
+        public CollectionViewSource TemplateName { get; set; }
+
+        
 
         public AddViewModel()
         {
+            _context.Plants.Load();
             _context.Locations.Load();
-
-            SuggestL = new CollectionViewSource();
-            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
-
+            _context.Areas.Load();
             _context.Templates.Load();
-            IList<Template> TemplateNameSuggest = _context.Templates.Local.ToObservableCollection();
-            TemplateName = CollectionViewSource.GetDefaultView(TemplateNameSuggest);
+
+            PlantViewSource = new CollectionViewSource();
+            LocationViewSource = new CollectionViewSource();
+            AreaViewSource = new CollectionViewSource();
+            SuggestL = new CollectionViewSource();
+            TemplateName = new CollectionViewSource();
+
+            PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
+            LocationViewSource.Source = _context.Locations.Local.ToObservableCollection();
+            AreaViewSource.Source = _context.Areas.Local.ToObservableCollection();
+            SuggestL.Source = _context.Locations.Local.ToObservableCollection();
+            TemplateName.Source = _context.Templates.Local.ToObservableCollection();
+
+            saveButtonCommand = new AddSaveButtonCommand(this);
+           
+
+
+        }
+        public void AutoSave ()
+        {
+            _context.SaveChanges();
         }
 
         #region Selected Items
@@ -168,6 +196,8 @@ namespace Planteskole.WPF.ViewModels
         }
         #endregion
 
+
+
         protected void NoticeMe(string property)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -176,5 +206,34 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void SaveButton()
+        {
+            _context.SaveChanges();
+        }
+
+        public ICommand saveButtonCommand
+        {
+            get;
+            private set;
+        }
+
+        public void DeletePlantsButton()
+        {
+            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+        }
+
+        public void DeleteLocationsButton()
+        {
+            _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+        }
+
+        public void DeleteAreasButton()
+        {
+            _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+        }
+
+
     }
+
 }

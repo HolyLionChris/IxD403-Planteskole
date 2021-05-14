@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Planteskole.Domain.Models;
 using System.ComponentModel;
+using Planteskole.WPF.ViewModels;
 
 namespace Planteskole.WPF.Views
 {
@@ -13,19 +14,13 @@ namespace Planteskole.WPF.Views
     /// </summary>
     public partial class AddView : UserControl 
     {
-        private readonly PlantContext _context = new PlantContext();
-
-        private CollectionViewSource PlantViewSource, LocationViewSource, AreaViewSource;
+       
 
 
         public AddView()
         {
             InitializeComponent();
-            
-            PlantViewSource = (CollectionViewSource)FindResource(nameof(PlantViewSource));
-            LocationViewSource = (CollectionViewSource)FindResource(nameof(LocationViewSource));
-            AreaViewSource = (CollectionViewSource)FindResource(nameof(AreaViewSource));
-
+            DataContext = new ViewModels.AddViewModel();
         }
 
         public ViewModels.AddViewModel AddViewModel
@@ -36,54 +31,26 @@ namespace Planteskole.WPF.Views
             }
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            // this is for demo purposes only, to make it easier
-            // to get up and running
-
-            //Should be comment unless changes have been made to the tables
-
-
-            // load the entities into EF Core
-            _context.Plants.Load();
-
-            // bind to the source
-            PlantViewSource.Source = _context.Plants.Local.ToObservableCollection();
-
-            _context.Locations.Load();
-            LocationViewSource.Source = _context.Locations.Local.ToObservableCollection();
-
-            _context.Areas.Load();
-            AreaViewSource.Source = _context.Areas.Local.ToObservableCollection();
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // all changes are automatically tracked, including
-            // deletes!
-            _context.SaveChanges();
-
-            // this forces the grid to refresh to latest values
-            PlantDataGrid.Items.Refresh();
-            LocationDataGrid.Items.Refresh();
-            AreaDataGrid.Items.Refresh();
-        }
+        
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             if (StackPanelInfoPlant.IsVisible == true)
             {
-                _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeletePlantsButton();
             }
             else if (StackPanelInfoLocation.IsVisible == true)
             {
-                _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeleteLocationsButton();
             }
             else if (StackPanelInfoArea.IsVisible == true)
             {
-                _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeleteAreasButton();
             }
-
-            //_context.SaveChanges();
-            //PlantDataGrid.Items.Refresh();
+            
+            PlantDataGrid.Items.Refresh();
 
         }
         private void TogglingButtonClicked(object sender, RoutedEventArgs e)
@@ -137,7 +104,10 @@ namespace Planteskole.WPF.Views
 
         private void OnTargetUpdated(object sender, DataTransferEventArgs args)
         {
-            _context.SaveChanges();
+            var ctx = (AddViewModel)this.DataContext;
+            ctx.AutoSave();
         }
+
+
     }
 }
