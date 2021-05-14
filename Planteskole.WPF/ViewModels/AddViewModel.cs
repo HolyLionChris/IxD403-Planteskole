@@ -11,19 +11,23 @@ using System.Windows.Data;
 using System.Collections.ObjectModel;
 using Planteskole.WPF.Commands;
 using System.Windows.Input;
+using System.Globalization;
+using System.Windows;
+using static Planteskole.WPF.Commands.AddViewCommands;
 
 namespace Planteskole.WPF.ViewModels
 {
     public class AddViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private readonly PlantContext _context = new PlantContext();
+       
         public CollectionViewSource PlantViewSource { get; private set; }
         public CollectionViewSource LocationViewSource { get; private set; }
         public CollectionViewSource AreaViewSource { get; private set; }
         public CollectionViewSource SuggestL { get; private set; }
         public CollectionViewSource TemplateName { get; set; }
 
-        public ICommand saveContextCommand;
+        
 
         public AddViewModel()
         {
@@ -44,7 +48,14 @@ namespace Planteskole.WPF.ViewModels
             SuggestL.Source = _context.Locations.Local.ToObservableCollection();
             TemplateName.Source = _context.Templates.Local.ToObservableCollection();
 
-            saveContextCommand = new SaveContextCommand(this);
+            saveButtonCommand = new AddSaveButtonCommand(this);
+            deleteButtonCommand = new AddDeleteButtonCommand(this);
+
+
+        }
+        public void AutoSave ()
+        {
+            _context.SaveChanges();
         }
 
         #region Selected Items
@@ -195,5 +206,41 @@ namespace Planteskole.WPF.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void SaveButton()
+        {
+            _context.SaveChanges();
+        }
+
+        public ICommand saveButtonCommand
+        {
+            get;
+            private set;
+        }
+
+        public void DeleteButton()
+        {
+            if (StackPanelInfoPlant.IsVisible == true)
+            {
+                _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoLocation.IsVisible == true)
+            {
+                _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+            }
+            else if (StackPanelInfoArea.IsVisible == true)
+            {
+                _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+            }
+            //_context.SaveChanges();
+            PlantDataGrid.Items.Refresh();
+        }
+
+        public ICommand deleteButtonCommand
+        {
+            get;
+            private set;
+        }
     }
+
 }

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Planteskole.Domain.Models;
 using System.ComponentModel;
+using Planteskole.WPF.ViewModels;
 
 namespace Planteskole.WPF.Views
 {
@@ -13,12 +14,13 @@ namespace Planteskole.WPF.Views
     /// </summary>
     public partial class AddView : UserControl 
     {
-        private readonly PlantContext _context = new PlantContext();
+       
 
 
         public AddView()
         {
             InitializeComponent();
+            DataContext = new ViewModels.AddViewModel();
         }
 
         public ViewModels.AddViewModel AddViewModel
@@ -29,17 +31,7 @@ namespace Planteskole.WPF.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // all changes are automatically tracked, including
-            // deletes!
-            _context.SaveChanges();
-
-            // this forces the grid to refresh to latest values
-            PlantDataGrid.Items.Refresh();
-            LocationDataGrid.Items.Refresh();
-            AreaDataGrid.Items.Refresh();
-        }
+        
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             if (StackPanelInfoPlant.IsVisible == true)
@@ -109,7 +101,10 @@ namespace Planteskole.WPF.Views
 
         private void OnTargetUpdated(object sender, DataTransferEventArgs args)
         {
-            _context.SaveChanges();
+            var ctx1 = (AddViewModel)this.DataContext;
+            ctx1.AutoSave();
         }
+
+
     }
 }
