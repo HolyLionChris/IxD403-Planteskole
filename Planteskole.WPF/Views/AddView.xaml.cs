@@ -36,17 +36,20 @@ namespace Planteskole.WPF.Views
         {
             if (StackPanelInfoPlant.IsVisible == true)
             {
-                //_context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeletePlantsButton();
             }
             else if (StackPanelInfoLocation.IsVisible == true)
             {
-                //_context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeleteLocationsButton();
             }
             else if (StackPanelInfoArea.IsVisible == true)
             {
-                //_context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+                var ctx = (AddViewModel)this.DataContext;
+                ctx.DeleteAreasButton();
             }
-            //_context.SaveChanges();
+            
             PlantDataGrid.Items.Refresh();
 
         }
@@ -101,8 +104,8 @@ namespace Planteskole.WPF.Views
 
         private void OnTargetUpdated(object sender, DataTransferEventArgs args)
         {
-            var ctx1 = (AddViewModel)this.DataContext;
-            ctx1.AutoSave();
+            var ctx = (AddViewModel)this.DataContext;
+            ctx.AutoSave();
         }
 
 

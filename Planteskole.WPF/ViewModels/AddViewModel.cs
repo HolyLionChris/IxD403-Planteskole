@@ -49,7 +49,7 @@ namespace Planteskole.WPF.ViewModels
             TemplateName.Source = _context.Templates.Local.ToObservableCollection();
 
             saveButtonCommand = new AddSaveButtonCommand(this);
-            deleteButtonCommand = new AddDeleteButtonCommand(this);
+           
 
 
         }
@@ -218,29 +218,22 @@ namespace Planteskole.WPF.ViewModels
             private set;
         }
 
-        public void DeleteButton()
+        public void DeletePlantsButton()
         {
-            if (StackPanelInfoPlant.IsVisible == true)
-            {
-                _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
-            }
-            else if (StackPanelInfoLocation.IsVisible == true)
-            {
-                _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
-            }
-            else if (StackPanelInfoArea.IsVisible == true)
-            {
-                _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
-            }
-            //_context.SaveChanges();
-            PlantDataGrid.Items.Refresh();
+            _context.Plants.Remove((Plant)PlantViewSource.View.CurrentItem);
         }
 
-        public ICommand deleteButtonCommand
+        public void DeleteLocationsButton()
         {
-            get;
-            private set;
+            _context.Locations.Remove((Location)LocationViewSource.View.CurrentItem);
         }
+
+        public void DeleteAreasButton()
+        {
+            _context.Areas.Remove((Area)AreaViewSource.View.CurrentItem);
+        }
+
+
     }
 
 }

@@ -45,27 +45,5 @@ namespace Planteskole.WPF.Commands
             }
         }
 
-        public class AddDeleteButtonCommand : ICommand
-        {
-
-            public event EventHandler CanExecuteChanged;
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                this._viewModel.DeleteButton();
-            }
-
-            private AddViewModel _viewModel;
-
-            public AddDeleteButtonCommand(AddViewModel viewModel)
-            {
-                this._viewModel = viewModel;
-            }
-        }
     }
 }
