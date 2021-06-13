@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Planteskole.WPF.Views"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:enums="clr-namespace:Planteskole.Domain.Models;assembly=Planteskole.Domain"
+             xmlns:converters="clr-namespace:Planteskole.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FontFamily="Roboto">
@@ -37,9 +38,17 @@
             </Style.Triggers>
         </Style>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        
         <CollectionViewSource x:Key="PlantViewSource"/>
-        <CollectionViewSource x:Key="LocationViewSource"/>
+        <CollectionViewSource x:Key="LocationViewSourceResource" Source="{Binding ObservableLocations}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="IsCompatible"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="AreaViewSource"/>
+        <converters:IsCompatibleToComboBoxTitleConverter x:Key="IsCompatibleToComboBoxTitleResource"/>
+        <converters:LocNameAreaNameToLocationConverter x:Key="LocNameAreaNameToLocationConverterResource"/>
+
         <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:Plant+FootType"/>
@@ -94,8 +103,46 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
+                            <!--<Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                            </Trigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style TargetType="RadioButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary2}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="2" BorderBrush="{StaticResource BrushPrimary1}" BorderThickness="1" Background="{StaticResource BrushPrimary1}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Normal">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource BrushPrimary2}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BrushPrimary1}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -122,11 +169,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="DataGridQuickEdit" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver"  Value="True" />
+                        <Condition Property="IsReadOnly" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsEditing"  Value="True" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
         <Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="Padding" Value="10,4" />
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
         </Style>
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -134,18 +197,18 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="360"></ColumnDefinition>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition/>
             <ColumnDefinition Width="100*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
 
-        <UniformGrid Rows="1" Grid.Row="0" Margin="2">
-            <Button Margin="2,0" x:Name="TogglingButton" Content="Add Plant" Click="TogglingButtonClicked" />
-            <Button Margin="2,0" x:Name="TogglingButtonLocation" Content="Add Location" Click="TogglingButtonClickedLocation" />
-            <Button Margin="2,0" x:Name="TogglingButtonArea" Content="Add Area" Click="TogglingButtonClickedArea" />
-        </UniformGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="2">
+            <RadioButton Margin="2,0" x:Name="TogglingButton" Content="Edit Plants" Click="TogglingButtonClicked" IsChecked="True"/>
+            <RadioButton Margin="2,0" x:Name="TogglingButtonLocation" Content="Edit Locations" Click="TogglingButtonClickedLocation" />
+            <RadioButton Margin="2,0" x:Name="TogglingButtonArea" Content="Edit Areas" Click="TogglingButtonClickedArea" />
+        </StackPanel>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
+        <!--<StackPanel Grid.Row="1" Name="StackPanelInfoPlant" >
             <TextBlock Text="Plants" FontSize="24" FontWeight="Black" FontFamily="Roboto" Margin="0,5,0,5" Foreground="{StaticResource BrushPrimary2}"/>
 
             <TextBlock Margin="0,0,0,5" Text="Name of the plant:"/>
@@ -197,22 +260,24 @@
                     <DataGridTextColumn Header="Watering" Binding="{Binding WMethod, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Temperature" Binding="{Binding LTemperatures, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Tree Support" Binding="{Binding TreeSupport, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="AvailableSpace" Binding="{Binding AvailableSquareFeet, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="AvailableSpace" Binding="{Binding AvailableSquareMeters, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </StackPanel>-->
 
-        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+        <Grid Grid.Row="1" Margin="4,5,10,10">
             <DataGrid x:Name="PlantDataGrid" AutoGenerateColumns="False" TargetUpdated="OnTargetUpdated" 
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding PlantViewSource.View}" 
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
                       Visibility="Visible"
-                      DataGridCell.Selected="DataGridCell_Selected">
+                      DataGridCell.Selected ="DataGridCell_Selected"
+                      CellStyle="{Binding Source={StaticResource DataGridQuickEdit}}">
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <!--Remove later-->
                     <DataGridTextColumn Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" Header="Name" Width="auto"/>
+                    <DataGridTextColumn Header="Height" Width="auto" Binding="{Binding Height}" />
                     <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
@@ -227,20 +292,158 @@
                     <!--<DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>-->
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
-                    
+
                     <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding TotalSquareFeet}" Header="Total Square Feet" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding TotalSquareMeters}" Header="Total Square Meters" Width="auto"/>
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
                     <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Location" Width="auto"/>
+                    
+                    <!-- Test -->
+                    <DataGridTextColumn Binding="{Binding LocationName}"/>
+                    <!-- Test -->
+
+                    <!--#region ComboBoxColumn-->
+                    <!--<DataGridComboBoxColumn 
+                        Header="Combo Box Column"
+                        ItemsSource="{Binding Source={StaticResource LocationViewSourceResource}}"
+                        TextBinding="{Binding Path=LocationName}">
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ComboBox">
+                                            <ComboBox 
+                                                ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AddView}}, Path=DataContext.LocationsComboBoxViewSource.View}"
+                                                Text="{Binding LocationName}"
+                                                SelectedValue="{Binding LocationName}"
+                                                SelectedValuePath="Name"
+                                                DisplayMemberPath="LocationName">
+                                                <ComboBox.GroupStyle>
+                                                    <GroupStyle>
+
+                                                        <GroupStyle.ContainerStyle>
+                                                            <Style TargetType="{x:Type GroupItem}">
+                                                                <Setter Property="Margin" Value="3,5"/>
+                                                            </Style>
+                                                        </GroupStyle.ContainerStyle>
+
+                                                        <GroupStyle.HeaderTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock 
+                                                                Text="{Binding Name, Converter={StaticResource IsCompatibleToComboBoxTitleResource}}" 
+                                                                FontWeight="Bold"/>
+                                                            </DataTemplate>
+                                                        </GroupStyle.HeaderTemplate>
+
+
+                                                    </GroupStyle>
+                                                </ComboBox.GroupStyle>
+                                            </ComboBox>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>-->
+                    <!--#endregion-->
+
+                    <!--#region TemplateColumn-->
+                    <DataGridTemplateColumn Header="Location">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="Location">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=AreaName}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Path=LocationName}"/>
+                                </StackPanel>
+                                <!--<ComboBox Focusable="False">
+                                    <ComboBoxItem IsSelected="True">
+                                        <TextBlock Text="{Binding LocationName, NotifyOnTargetUpdated=False}"/>
+                                    </ComboBoxItem>
+                                </ComboBox>-->
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <!-- SelectedValuePath Leder på location-->
+                                <!-- SelectedValue Leder på plant / i datacontext-->
+                                <ComboBox 
+                                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AddView}}, Path=DataContext.LocationsComboBoxViewSource.View}"
+                                    DisplayMemberPath="LocationName"
+                                    Text="{Binding LocationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <!--
+                                    SelectedValue="{Binding LocationName}"-->
+
+                                    <ComboBox.SelectedItem>
+                                        <!--<MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding  RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}" Path="Item.LocationName"/>
+                                            <Binding  RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}" Path="Item.AreaName"/>
+                                        </MultiBinding>-->
+                                        <MultiBinding Converter="{StaticResource LocNameAreaNameToLocationConverterResource}">
+                                            <Binding  RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}" Path="Item.LocationName"/>
+                                            <Binding  RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}" Path="Item.AreaName"/>
+                                        </MultiBinding>
+                                        <!--<MultiBinding>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="Text" ElementName="LocationName" />
+                                                <Binding Path="Text" ElementName="AreaName" />
+                                            </MultiBinding>
+                                        </MultiBinding>-->
+                                    </ComboBox.SelectedItem>
+
+                                    <ComboBox.GroupStyle>
+                                        <GroupStyle>
+
+                                            <GroupStyle.ContainerStyle>
+                                                <Style TargetType="{x:Type GroupItem}">
+                                                    <Setter Property="Margin" Value="3,5"/>
+                                                    <!--<Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                <Grid>
+                                                                    <TextBlock Grid.Row="0" Text="{Binding Name, Converter={StaticResource IsCompatibleToComboBoxTitleResource}}" FontWeight="Bold"/>
+                                                                    <ItemsPresenter Grid.Row="1"/>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>-->
+                                                </Style>
+                                            </GroupStyle.ContainerStyle>
+
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock 
+                                                    Text="{Binding Name, Converter={StaticResource IsCompatibleToComboBoxTitleResource}}" FontWeight="Bold"/>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ComboBox.GroupStyle>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="Location">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Path=AreaName}"/>
+                                                <TextBlock Text=" - "/>
+                                                <TextBlock Text="{Binding Path=LocationName}"/>
+                                                <!--<TextBlock Text=" - "/>
+                                                <TextBlock Text="{Binding Path=AvailableSquareMeters}"/>-->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <!--#endregion-->
+                    
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        
-        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+
+        <Grid Grid.Row="1" Margin="4,5,10,10">
             <DataGrid x:Name="AreaDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding AreaViewSource.View}" 
@@ -254,15 +457,15 @@
             </DataGrid>
         </Grid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoArea" Visibility="Collapsed">
+        <!--<StackPanel Grid.Row="1" Name="StackPanelInfoArea" Visibility="Collapsed">
             <TextBlock Text="Areas" FontSize="24" FontWeight="Black" FontFamily="Roboto" Margin="0,5,0,5" Foreground="{StaticResource BrushPrimary2}"/>
             <TextBlock Margin="0,0,0,5" Text="Name of the Area:"/>
             <TextBox Text="{Binding SelectedItemArea.AreaName, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
             <TextBlock Margin="0,5" Text="ID:"/>
             <TextBox Text="{Binding SelectedItemArea.Id, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
-        </StackPanel>
+        </StackPanel>-->
 
-        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="15,0,10,0">
+        <Grid Grid.Row="1" Margin="4,5,10,10">
             <DataGrid x:Name="LocationDataGrid" AutoGenerateColumns="False" 
                       EnableRowVirtualization="True" 
                       ItemsSource="{Binding LocationViewSource.View}" 
@@ -284,7 +487,7 @@
                     
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="75"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="75"/>
-                    <DataGridTextColumn Binding="{Binding AvailableSquareFeet}" Header="Available Space" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AvailableSquareMeters}" Header="Available Space" Width="auto"/>
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
@@ -293,7 +496,7 @@
             </DataGrid>
         </Grid>
 
-        <StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed" >
+        <!--<StackPanel Grid.Row="1" Name="StackPanelInfoLocation" Visibility="Collapsed" >
             <TextBlock Text="Locations" FontSize="24" FontWeight="Black" FontFamily="Roboto" Margin="0,5,0,5" Foreground="{StaticResource BrushPrimary2}"/>
             <TextBlock Margin="0,0,0,5" Text="Name of the Location:"/>
             <TextBox Text="{Binding SelectedItemLocation.Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" TargetUpdated="OnTargetUpdated"/>
@@ -311,12 +514,12 @@
             <TextBox Text="{Binding SelectedItemLocation.Cold, Mode=TwoWay}"/>
             <TextBlock Margin="0,5" Text="AreaID:"/>
             <TextBox Text="{Binding SelectedItemLocation.AreaName, Mode=TwoWay}"/>
-        </StackPanel>
+        </StackPanel>-->
 
-        <UniformGrid Rows="1" Grid.Row="2" Margin="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="3" Margin="2">
             <Button Margin="2,0" Content="Delete" Name="ButtonDelete" Click="ButtonDelete_Click" Grid.Row="1"/>
             <Button Command="{Binding saveButtonCommand}" Content="Save" Margin="2,0" Grid.Row="2"/>
-        </UniformGrid>
+        </StackPanel>
 
         
 

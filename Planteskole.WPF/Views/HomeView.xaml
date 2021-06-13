@@ -108,6 +108,7 @@
                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>
                         <!--Remove later-->
                         <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" />
+                        <DataGridTextColumn Header="Height" Width="auto" Binding="{Binding Height}" />
                         <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}" />
                         <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
@@ -122,10 +123,10 @@
                         <!--<DataGridTextColumn Header="Weight Per Plant" Width="auto" Binding="{Binding WeightPerPlant}" />-->
                         <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
-                        
+
                         <DataGridTextColumn Header="Depth Per Plant" Width="auto" Binding="{Binding DepthPerPlant}" />
                         <DataGridTextColumn Header="Width Per Plant" Width="auto" Binding="{Binding WidthPerPlant}" />
-                        <DataGridTextColumn Header="Total Square Feet" Width="auto" Binding="{Binding TotalSquareFeet}" />
+                        <DataGridTextColumn Header="Total Square Meters" Width="auto" Binding="{Binding TotalSquareMeters}" />
                         <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
@@ -150,7 +151,7 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                <Expander BorderBrush="LightGray" BorderThickness="2" IsExpanded="False" Background="LightGray"  >
+                                                <Expander BorderBrush="LightGray" BorderThickness="2" IsExpanded="True" Background="LightGray"  >
                                                     <Expander.Header>
                                                         <StackPanel Orientation="Horizontal">
                                                             <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Path=Name}" Width="200" FontSize="14"/>

@@ -6,6 +6,7 @@ using System.Windows.Data;
 using Planteskole.Domain.Models;
 using System.ComponentModel;
 using Planteskole.WPF.ViewModels;
+using System.Windows.Media;
 
 namespace Planteskole.WPF.Views
 {
@@ -34,17 +35,17 @@ namespace Planteskole.WPF.Views
         
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (StackPanelInfoPlant.IsVisible == true)
+            if (PlantDataGrid.IsVisible == true)
             {
                 var ctx = (AddViewModel)this.DataContext;
                 ctx.DeletePlantsButton();
             }
-            else if (StackPanelInfoLocation.IsVisible == true)
+            else if (LocationDataGrid.IsVisible == true)
             {
                 var ctx = (AddViewModel)this.DataContext;
                 ctx.DeleteLocationsButton();
             }
-            else if (StackPanelInfoArea.IsVisible == true)
+            else if (AreaDataGrid.IsVisible == true)
             {
                 var ctx = (AddViewModel)this.DataContext;
                 ctx.DeleteAreasButton();
@@ -55,9 +56,10 @@ namespace Planteskole.WPF.Views
         }
         private void TogglingButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.StackPanelInfoPlant.Visibility = Visibility.Visible;
-            this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
-            this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoPlant.Visibility = Visibility.Visible;
+            //this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+
             this.PlantDataGrid.Visibility = Visibility.Visible;
             this.LocationDataGrid.Visibility = Visibility.Collapsed;
             this.AreaDataGrid.Visibility = Visibility.Collapsed;
@@ -69,9 +71,9 @@ namespace Planteskole.WPF.Views
 
         private void TogglingButtonClickedArea(object sender, RoutedEventArgs e)
         {
-            this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
-            this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
-            this.StackPanelInfoArea.Visibility = Visibility.Visible;
+            //this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoLocation.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoArea.Visibility = Visibility.Visible;
             this.AreaDataGrid.Visibility = Visibility.Visible;
             this.PlantDataGrid.Visibility = Visibility.Collapsed;
             this.LocationDataGrid.Visibility = Visibility.Collapsed;
@@ -81,9 +83,9 @@ namespace Planteskole.WPF.Views
         }
         private void TogglingButtonClickedLocation(object sender, RoutedEventArgs e)
         {
-            this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
-            this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
-            this.StackPanelInfoLocation.Visibility = Visibility.Visible;
+            //this.StackPanelInfoPlant.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoArea.Visibility = Visibility.Collapsed;
+            //this.StackPanelInfoLocation.Visibility = Visibility.Visible;
             this.LocationDataGrid.Visibility = Visibility.Visible;
             this.PlantDataGrid.Visibility = Visibility.Collapsed;
             this.AreaDataGrid.Visibility = Visibility.Collapsed;

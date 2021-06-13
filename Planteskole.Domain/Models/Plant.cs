@@ -24,6 +24,7 @@ namespace Planteskole.Domain.Models
         public int WeightPerPlant { get; set; }
         public int DepthPerPlant { get; set; }
         public int WidthPerPlant { get; set; }
+        public int Height { get; set; }
         public string LocationName { get; set; }
         public string AreaName { get; set; }
         public FootType FootEnum { get; set; } = FootType.NA;
@@ -35,7 +36,7 @@ namespace Planteskole.Domain.Models
             get{ return "Total"; }
         }
 
-        public double TotalSquareFeet
+        public double TotalSquareMeters
         {
             get { return (this.DepthPerPlant * this.WidthPerPlant) * this.Amount; }
             set { }

@@ -27,6 +27,9 @@ namespace Planteskole.WPF.ViewModels
         public CollectionViewSource SuggestL { get; private set; }
         public CollectionViewSource TemplateName { get; set; }
 
+        public CollectionViewSource LocationsComboBoxViewSource { get; set; }
+        public ObservableCollection<Location> ObservableLocations { get; set; }
+
         
 
         public AddViewModel()
@@ -48,6 +51,14 @@ namespace Planteskole.WPF.ViewModels
             SuggestL.Source = _context.Locations.Local.ToObservableCollection();
             TemplateName.Source = _context.Templates.Local.ToObservableCollection();
 
+            ObservableLocations = new ObservableCollection<Location>();
+            ObservableLocations = _context.Locations.Local.ToObservableCollection();
+
+            LocationsComboBoxViewSource = new CollectionViewSource();
+            LocationsComboBoxViewSource.Source = _context.Locations.Local.ToObservableCollection();
+            LocationsComboBoxViewSource.SortDescriptions.Add(new SortDescription("IsCompatible", ListSortDirection.Descending));
+            LocationsComboBoxViewSource.GroupDescriptions.Add(new PropertyGroupDescription("IsCompatible"));
+
             saveButtonCommand = new AddSaveButtonCommand(this);
            
 
@@ -65,9 +76,10 @@ namespace Planteskole.WPF.ViewModels
             get { return _selectedItem; }
             set { _selectedItem = value;
                   NoticeMe("SelectedItem");
-                  UpdateLocations(_context.Locations, _context.Plants);
-                  SuggestL.Filter += new FilterEventHandler(SuggestPlacementFilter);
-                  SuggestL.View.Refresh();
+                  UpdateLocations(_context.Locations, _context.Plants, _selectedItem);
+                  _context.SaveChanges();
+                  //SuggestL.Filter += new FilterEventHandler(SuggestPlacementFilter);
+                  LocationsComboBoxViewSource.View.Refresh();
             }
         }
 
@@ -120,7 +132,7 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            if (plt.TotalSquareFeet <= loc.AvailableSquareFeet)
+            if (plt.TotalSquareMeters <= loc.AvailableSquareMeters)
             {
                 spaceCompatible = true;
             }
@@ -187,11 +199,12 @@ namespace Planteskole.WPF.ViewModels
 
         #region UpdateLocations
         //Updates available and occupied square feet for all locations in an enumerable
-        public void UpdateLocations(IEnumerable<Location> locs, DbSet<Plant> plantDbSet)
+        public void UpdateLocations(IEnumerable<Location> locs, DbSet<Plant> plantDbSet, Plant plt)
         {
             foreach (Location loc in locs)
             {
-                loc.UpdateInfo(plantDbSet);
+                loc.UpdateSpace(plantDbSet);
+                if (plt != null) { loc.IsCompatible = IsCompatibleWithAllProperties(plt, loc); }
             }
         }
         #endregion
