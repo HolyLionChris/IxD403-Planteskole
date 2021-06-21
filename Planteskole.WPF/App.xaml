@@ -20,6 +20,18 @@
             <DataTemplate DataType="{x:Type viewmodels:DatabaseViewModel}">
                 <views:DatabaseView/>
             </DataTemplate>
+
+            <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridWrappedColumnHeader">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" Padding="10,4" FontSize="14" Height="43" VerticalAlignment="Top">
+                            </TextBlock>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

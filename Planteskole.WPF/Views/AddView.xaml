@@ -192,18 +192,6 @@
             <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}"/>
         </Style>-->
 
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Padding="10,4" FontSize="14">
-                        </TextBlock>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}"/>
-        </Style>
-
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -286,10 +274,12 @@
                       RowDetailsVisibilityMode="VisibleWhenSelected" SelectedItem="{Binding SelectedItem}"
                       Visibility="Visible"
                       DataGridCell.Selected ="DataGridCell_Selected"
-                      CellStyle="{Binding Source={StaticResource DataGridQuickEdit}}">
+                      CellStyle="{Binding Source={StaticResource DataGridQuickEdit}}"
+                      ColumnHeaderStyle="{Binding Source={StaticResource DataGridWrappedColumnHeader}}">
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <!--Remove later-->
+                    
                     <DataGridTextColumn Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" Header="Name" Width="auto">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -329,7 +319,7 @@
                     <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport, UpdateSourceTrigger=PropertyChanged}" Header="Needs Tree Support" Width="100"/>
                     
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum, UpdateSourceTrigger=PropertyChanged}" Header="Foot Type" Width="60"/>
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds, UpdateSourceTrigger=PropertyChanged}" Header="Watering"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds, UpdateSourceTrigger=PropertyChanged}" Header="Watering" Width="105"/>
                     <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature, UpdateSourceTrigger=PropertyChanged}" Header="Temperature"/>
 
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
