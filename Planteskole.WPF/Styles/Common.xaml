@@ -16,10 +16,11 @@
     <!--DataGrid Column Styles-->
     <Style x:Key="EmptyColumnCellStyle" TargetType="DataGridCell">
         <Setter Property="IsEnabled" Value="False"/>
-        <Setter Property="Background" Value="{StaticResource BrushPrimary3}"/>
+        <Setter Property="Background" Value="{StaticResource BrushPrimary4}"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
     <Style x:Key="EmptyColumnHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Background"  Value="{StaticResource BrushPrimary3}"/>
+        <Setter Property="Background"  Value="{StaticResource BrushPrimary4}"/>
     </Style>
 
 </ResourceDictionary>

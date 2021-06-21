@@ -126,7 +126,7 @@
 
                         <DataGridTextColumn Header="Depth Per Plant" Width="auto" Binding="{Binding DepthPerPlant}" />
                         <DataGridTextColumn Header="Width Per Plant" Width="auto" Binding="{Binding WidthPerPlant}" />
-                        <DataGridTextColumn Header="Total Square Meters" Width="auto" Binding="{Binding TotalSquareMeters}" />
+                        <DataGridTextColumn Header="Total Square Centimeters" Width="auto" Binding="{Binding TotalSquareCentimeters}" />
                         <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 

@@ -13,7 +13,7 @@
 
 
     <UserControl.Resources>
-        <Style TargetType="StackPanel" x:Key="StackPanelInfoPlant">
+        <!--<Style TargetType="StackPanel" x:Key="StackPanelInfoPlant">
             <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsVisible}" Value="True">
@@ -36,7 +36,7 @@
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
         
         <CollectionViewSource x:Key="PlantViewSource"/>
@@ -48,6 +48,8 @@
         <CollectionViewSource x:Key="AreaViewSource"/>
         <converters:IsCompatibleToComboBoxTitleConverter x:Key="IsCompatibleToComboBoxTitleResource"/>
         <converters:LocNameAreaNameToLocationConverter x:Key="LocNameAreaNameToLocationConverterResource"/>
+        <converters:AddMeasureToDimensionConverter x:Key="AddMeasureToDimensionConverterResource"/>
+        <converters:AddMeasureToVolumeConverter x:Key="AddMeasureToVolumeConverterResource"/>
 
         <ObjectDataProvider x:Key="EnumFootType" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -184,10 +186,22 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type DataGridColumnHeader}">
+        <!--<Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="Padding" Value="10,4" />
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}"/>
+        </Style>-->
+
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Padding="10,4" FontSize="14">
+                        </TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="SeparatorBrush" Value="{StaticResource BrushPrimary2}"/>
         </Style>
 
     </UserControl.Resources>
@@ -276,34 +290,90 @@
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="auto" IsReadOnly="True"/>-->
                     <!--Remove later-->
-                    <DataGridTextColumn Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True}" Header="Name" Width="auto"/>
-                    <DataGridTextColumn Header="Height" Width="auto" Binding="{Binding Height}" />
-                    <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" Width="auto"/>
-                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
-                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
+                    <DataGridTextColumn Binding="{Binding Name, Mode=TwoWay, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" Header="Name" Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Padding" Value="0,0,30,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     
-                    <DataGridCheckBoxColumn Binding="{Binding Sellable}" Header="Sellable" Width="auto"/>
-                    <DataGridCheckBoxColumn Binding="{Binding NeedsLight}" Header="Needs Light" Width="auto"/>
-                    <DataGridCheckBoxColumn Binding="{Binding Vulnerable}" Header="Vulnerable" Width="auto"/>
-                    <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport}" Header="Needs Tree Support" Width="auto"/>
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum}" Header="Foot Type"/>
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds}" Header="Watering"/>
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature}" Header="Temperature"/>
-                    <!--<DataGridTextColumn Binding="{Binding WeightPerPlant}" Header="Weight Per Plant" Width="auto"/>-->
+                    <DataGridTextColumn Header="Height" Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Height, Converter={StaticResource AddMeasureToDimensionConverterResource}}"/>
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Text" Value="{Binding Height, UpdateSourceTrigger=LostFocus}"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Header="Amount" Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
-                    <DataGridTextColumn Binding="{Binding DepthPerPlant}" Header="Depth Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding WidthPerPlant}" Header="Width Per Plant" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding TotalSquareMeters}" Header="Total Square Meters" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding Sellable, UpdateSourceTrigger=PropertyChanged}" Header="Sellable" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding NeedsLight, UpdateSourceTrigger=PropertyChanged}" Header="Needs Light" Width="70"/>
+                    <DataGridCheckBoxColumn Binding="{Binding Vulnerable, UpdateSourceTrigger=PropertyChanged}" Header="Vulnerable" Width="auto"/>
+                    <DataGridCheckBoxColumn Binding="{Binding NeedsTreeSupport, UpdateSourceTrigger=PropertyChanged}" Header="Needs Tree Support" Width="100"/>
+                    
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumFootType}}" SelectedItemBinding="{Binding FootEnum, UpdateSourceTrigger=PropertyChanged}" Header="Foot Type" Width="60"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumWateringNeeds}}" SelectedItemBinding="{Binding WNeeds, UpdateSourceTrigger=PropertyChanged}" Header="Watering"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource EnumTemperatureNeeds}}" SelectedItemBinding="{Binding PTemperature, UpdateSourceTrigger=PropertyChanged}" Header="Temperature"/>
+
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
-                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
-                    
-                    <!-- Test -->
-                    <DataGridTextColumn Binding="{Binding LocationName}"/>
-                    <!-- Test -->
+                    <DataGridTextColumn Header="Depth Per Plant" Width="85">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding DepthPerPlant, Converter={StaticResource AddMeasureToDimensionConverterResource}}"/>
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Text" Value="{Binding DepthPerPlant, UpdateSourceTrigger=LostFocus}"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Width Per Plant" Width="85">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding WidthPerPlant, Converter={StaticResource AddMeasureToDimensionConverterResource}}"/>
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Text" Value="{Binding WidthPerPlant, UpdateSourceTrigger=LostFocus}"/>
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Total Volume" Width="85" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding TotalSquareCentimeters, Converter={StaticResource AddMeasureToVolumeConverterResource}}"/>
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
+                                                  HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 
                     <!--#region ComboBoxColumn-->
                     <!--<DataGridComboBoxColumn 
@@ -354,7 +424,7 @@
                     <DataGridTemplateColumn Header="Location">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="Location">
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,25,0">
                                     <TextBlock Text="{Binding Path=AreaName}"/>
                                     <TextBlock Text=" - "/>
                                     <TextBlock Text="{Binding Path=LocationName}"/>
@@ -371,10 +441,10 @@
                                 <!-- SelectedValuePath Leder på location-->
                                 <!-- SelectedValue Leder på plant / i datacontext-->
                                 <ComboBox 
-                                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AddView}}, Path=DataContext.LocationsComboBoxViewSource.View}"
-                                    DisplayMemberPath="LocationName"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AddView}}, Path=DataContext.LocationsComboBoxViewSource.View}">
+                                    <!--DisplayMemberPath="LocationName"
                                     Text="{Binding LocationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <!--
+                                    
                                     SelectedValue="{Binding LocationName}"-->
 
                                     <ComboBox.SelectedItem>
@@ -438,7 +508,12 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <!--#endregion-->
-                    
+
+                    <!-- Test
+                    <DataGridTextColumn Binding="{Binding AreaName}" Header="Area" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding LocationName}" Header="Location"/>
+                     Test -->
+
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -487,7 +562,7 @@
                     
                     <DataGridTextColumn Binding="{Binding Depth}" Header="Depth" Width="75"/>
                     <DataGridTextColumn Binding="{Binding Width}" Header="Width" Width="75"/>
-                    <DataGridTextColumn Binding="{Binding AvailableSquareMeters}" Header="Available Space" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding AvailableSquareCentimeters}" Header="Available Space" Width="auto"/>
                     <DataGridTextColumn Width="2" CellStyle="{Binding Source={StaticResource EmptyColumnCellStyle}}" 
                                                   HeaderStyle="{Binding Source={StaticResource EmptyColumnHeaderStyle}}"/>
 

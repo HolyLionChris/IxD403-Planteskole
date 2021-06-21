@@ -22,9 +22,9 @@ namespace Planteskole.Domain.Models
         public bool Vulnerable { get; set; }
         public bool NeedsTreeSupport { get; set; }
         public int WeightPerPlant { get; set; }
-        public int DepthPerPlant { get; set; }
-        public int WidthPerPlant { get; set; }
-        public int Height { get; set; }
+        public double DepthPerPlant { get; set; }
+        public double WidthPerPlant { get; set; }
+        public double Height { get; set; }
         public string LocationName { get; set; }
         public string AreaName { get; set; }
         public FootType FootEnum { get; set; } = FootType.NA;
@@ -36,7 +36,7 @@ namespace Planteskole.Domain.Models
             get{ return "Total"; }
         }
 
-        public double TotalSquareMeters
+        public double TotalSquareCentimeters
         {
             get { return (this.DepthPerPlant * this.WidthPerPlant) * this.Amount; }
             set { }

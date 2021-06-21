@@ -132,7 +132,7 @@ namespace Planteskole.WPF.ViewModels
         {
             bool spaceCompatible = false;
 
-            if (plt.TotalSquareMeters <= loc.AvailableSquareMeters)
+            if (plt.TotalSquareCentimeters <= loc.AvailableSquareCentimeters)
             {
                 spaceCompatible = true;
             }
